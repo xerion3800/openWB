@@ -1,5 +1,8 @@
 # openWB
 
+
+
+
 Die Software steht frei für jeden zur Verfügung, siehe GPLv3 Bedingungen.
 
 	Unterstüztung ist gerne gesehen!
@@ -16,17 +19,14 @@ Eine Fehlkonfiguration der Software kann höchstens ein nicht geladenes Auto bed
 Falsch zusammengebaute Hardware kann lebensgefährlich sein. Im Zweifel diesen Part von einem Elektriker durchführen lassen.
 Keine Gewährleistung für die Software - use at your own RISK!
 
-# Spezielle Anpassungen
-Bei diesem Fork wurden Anpassungen auf meine Bedürfnisse durchgeführt. Zu einem eine Anpassung für die go-eCharger und zu anderem für den SENEC Speicher. Da der SENEC Speicher angezeigt werden soll, aber nicht extern gesteuert werden kann, wurde der SENEC Speicher nur zur Anzeige hinzugefügt. Die Vorarbeit des "SENEC-Moduls" wurde von "cjungde" aus dem openWB-Forum initial zur Verfügung gestellt. Vielen Danke dafür!
-
-Damit die beiden go-eCharger nicht den Speicher ungewollt entleeren, wurden diese physikalisch vor dem EnFluRi gesetzt, damit der SENEC Speicher die Verbräuche nicht erfassen kann und somit nicht versucht den Verbrauch zu decken und sich der Speicher in die Autos entleeren würde.
-Damit aber die PV-Regelung und damit die Erfassung der Verbräuche wiederrum richtig aufsummiert werden, habe ich die Werte der beiden Chargern im SENEC Modul hinzugefügt.
-
-
 # Wofür?
 Steuerung einer EVSE DIN oder anderer Ladepunkte für sofortiges laden, Überwachung der Ladung, PV Überschussladung und Lastmanagement mehrerer WB.
 
 Unterstützt wird jedes EV das den AC Ladestandard unterstützt.
+
+
+
+
 
 # Bezug
 openWB gibt es unter 
@@ -34,9 +34,13 @@ openWB gibt es unter
 	https://openwb.de/shop/
 
 
+
 # Installation
 
+
 Bei fertigen openWB vorinstalliert
+
+
 
 Software:
 
@@ -44,13 +48,13 @@ Installiertes Raspbian auf einem Raspberry pi 3.
 
 Installationsanleitung für Windows: http://openwb.de/main/wp-content/uploads/2019/07/install_openWB_v2.pdf
 
-Raspbian installieren
+Raspbian installieren aktuell werden in der Version 1.9 nur Stretch (bevorzugt) und Buster unterstützt.
 
-	https://www.raspberrypi.org/downloads/raspbian/
+	http://downloads.raspberrypi.org/raspbian_full/images/
 
 In der Shell folgendes eingeben:
 
-	curl -s https://raw.githubusercontent.com/xerion3800/openWB/master/openwb-install.sh | sudo sh
+	curl -s https://raw.githubusercontent.com/snaptec/openWB/master/openwb-install.sh | sudo bash
 
 
 
@@ -59,39 +63,15 @@ Crontab anpassen:
 hier einfügen:
 
 	* * * * * /var/www/html/openWB/regel.sh >> /var/log/openWB.log 2>&1 
-	* * * * * sleep 10 && /var/www/html/openWB/modules/_senec/senec.py && /var/www/html/openWB/regel.sh >> /var/log/openWB.log 2>&1 
-	* * * * * sleep 20 && /var/www/html/openWB/modules/_senec/senec.py && /var/www/html/openWB/regel.sh >> /var/log/openWB.log 2>&1 
-	* * * * * sleep 30 && /var/www/html/openWB/modules/_senec/senec.py && /var/www/html/openWB/regel.sh >> /var/log/openWB.log 2>&1 
-	* * * * * sleep 40 && /var/www/html/openWB/modules/_senec/senec.py && /var/www/html/openWB/regel.sh >> /var/log/openWB.log 2>&1 
-	* * * * * sleep 50 && /var/www/html/openWB/modules/_senec/senec.py && /var/www/html/openWB/regel.sh >> /var/log/openWB.log 2>&1 
+	* * * * * sleep 10 && /var/www/html/openWB/regel.sh >> /var/log/openWB.log 2>&1 
+	* * * * * sleep 20 && /var/www/html/openWB/regel.sh >> /var/log/openWB.log 2>&1 
+	* * * * * sleep 30 && /var/www/html/openWB/regel.sh >> /var/log/openWB.log 2>&1 
+	* * * * * sleep 40 && /var/www/html/openWB/regel.sh >> /var/log/openWB.log 2>&1 
+	* * * * * sleep 50 && /var/www/html/openWB/regel.sh >> /var/log/openWB.log 2>&1 
 
 
- # SENEC Speicher HTTP Abfrage
 
-In der OpenWB Oberfläche gehe ich auf: Einstellungen > Einstellungen > Modulkonfiguration und wähle im Bereich "Strombezugsmessmodul (EVU-Übergabepunkt)" das Strombezugsmodul "HTTP" aus.
-Um die Konfigurationen nun einzulesen gebe ich nacheinander die Pfade zu meinen RamDisk Dateien ein:
-
-
-	http://localhost/openWB/ramdisk/wattbezug_senec
-	http://localhost/openWB/ramdisk/bezugkwh_senec
-	http://localhost/openWB/ramdisk/einspeisungkwh_senec
-	http://localhost/openWB/ramdisk/bezuga1_senec
-	http://localhost/openWB/ramdisk/bezuga2_senec
-	http://localhost/openWB/ramdisk/bezuga3_senec
-
-Im Bereich "Speicher-Modul" wähle ich "HTTP Abfrage" und trage nacheinander folgendes ein:
-
-	http://localhost/openWB/ramdisk/speicherleistung_senec
-	http://localhost/openWB/ramdisk/speichersoc_senec
-	http://localhost/openWB/ramdisk/speicherikwh_senec
-	http://localhost/openWB/ramdisk/speicherekwh_senec
-
-Im Bereich "PV" wähle ich "HTTP Abfrage" und trage nacheinander folgendes ein:
-
-	http://localhost/openWB/ramdisk/pvwatt_senec
-	http://localhost/openWB/ramdisk/pvewh_senec
-
-Quelle:	https://openwb.de/forum/viewtopic.php?t=1082
+ 
 
 
 # Extras

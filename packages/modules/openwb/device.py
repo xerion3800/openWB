@@ -65,7 +65,7 @@ def read_legacy(argv: List[str]):
     version = int(argv[2])
     try:
         num = int(argv[3])
-    except ValueError:
+    except IndexError:
         num = None
 
     device_config = get_default_config()
