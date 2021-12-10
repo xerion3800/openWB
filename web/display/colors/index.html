@@ -250,7 +250,7 @@
                         <div class="modal-title text-light text-center">Einstellungen Ladepunkt <span
                                 class="configLp"></span></div>
                     </div>
-
+                   
                 </div>
                 <!-- modal body -->
                 <div class="modal-body">
@@ -323,7 +323,7 @@
                                             class="labelEnergyLimit modalLabel col-form-label valueLabel pull-right"
                                             data-suffix="kWh"></label>
                                     </div>
-                                    <div class="col-8">
+                                    <div class="col">
                                         <input type="range" class="form-control-range energyRangeInput" id="energyLimit"
                                             min="2" max="100" step="2" value="2"
                                             data-topicprefix="openWB/config/get/sofort/">
@@ -333,14 +333,14 @@
                                             type="button" id="lp/1/resetEnergyToCharge"
                                             value="Energiemenge zurücksetzen"
                                             data-topicprefix="openWB/config/get/sofort/">
-                                    </div> -->
+                                    </div>
                                 </div> <!-- end limit energy -->
                                 <!-- options if limit is set to EV SoC (2) -->
-                                <div class="socLimitSettings form-row vaRow form-group hide pb-0 mb-0" data-option="2">
-                                    <div class="col-4 pb-0 mb-0 ">
-                                        <label for="socLimit" class="modalLabel col-form-label pb-0 mb-0 ">SoC:</label>
+                                <div class="socLimitSettings form-row vaRow form-group hide" data-option="2">
+                                    <div class="col-4">
+                                        <label for="socLimit" class="modalLabel col-form-label">SoC:</label>
                                         <label for="socLimit"
-                                            class="labelSocLimit modalLabel col-form-label valueLabel pull-right pb-0 mb-0 "
+                                            class="labelSocLimit modalLabel col-form-label valueLabel pull-right"
                                             data-suffix="%"></label>
                                     </div>
                                     <div class="col">

@@ -49,6 +49,7 @@ class PvKitFlex:
             self.__tcp_client.close_connection()
 
         log.MainLogger().debug("PV-Kit Leistung[W]: "+str(power_all))
+        self.tcp_client.close_connection()
         inverter_state = InverterState(
             power=power_all,
             counter=counter,

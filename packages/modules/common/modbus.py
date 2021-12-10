@@ -41,8 +41,6 @@ Number = Union[int, float]
 class ModbusClient:
     def __init__(self, address: str, port: int = 502):
         self.delegate = ModbusTcpClient(address, port)
-        self.address = address
-        self.port = port
 
     def __enter__(self):
         self.delegate.__enter__()
