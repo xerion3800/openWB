@@ -98,6 +98,12 @@ if [[ $? == "0" ]] ; then
 			/var/www/html/openWB/runs/pushover.sh "$message"
 		fi
 	fi
+	if [[ $plugstat == "0" ]] ; then
+		if [[ $telebplug == "1" ]] && [[ $car != "1" ]] && [[ $telebenachrichtigung == "1" ]] ; then
+			message="$lp1name eingesteckt. Ladung startet bei erfüllter Ladebedingung automatisch."
+			/var/www/html/openWB/runs/telegram.sh "$message"
+		fi
+	fi
 	if [[ $car == "1" ]] ; then
 		echo 0 > /var/www/html/openWB/ramdisk/plugstat
 	else
