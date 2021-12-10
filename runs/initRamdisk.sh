@@ -176,10 +176,16 @@ initRamdisk(){
 	echo 0 > $RamdiskPath/progevsedinlp22000
 	echo 0 > $RamdiskPath/progevsedinlp22007
 	echo 0 > $RamdiskPath/cpulp1counter
-	echo 0 > $RamdiskPath/soc
+	temp_soc=$(<$RamdiskPath/soc)
+	echo $temp_soc >$RamdiskPath/temp_soc
+	soc=$(<$RamdiskPath/temp_soc)
+	echo $soc > $RamdiskPath/soc
 	echo 0 > $RamdiskPath/soc-live.graph
 	echo 0 > $RamdiskPath/soc.graph
-	echo 0 > $RamdiskPath/soc1
+	temp_soc1=$(<$RamdiskPath/soc1)
+	echo $temp_soc1 >$RamdiskPath/temp_soc1
+	soc1=$(<$RamdiskPath/temp_soc1)
+	echo $soc1 > $RamdiskPath/soc1
 	echo 0 > $RamdiskPath/soc1vorhanden
 	echo 0 > $RamdiskPath/tmpsoc
 	echo 0 > $RamdiskPath/tmpsoc1
