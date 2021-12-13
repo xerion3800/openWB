@@ -453,6 +453,7 @@ initRamdisk(){
 		for f in \
 			"pluggedladunglp${i}startkwh:openWB/lp/${i}/plugStartkWh:0" \
 			"pluggedladungaktlp${i}:openWB/lp/${i}/pluggedladungakt:0" \
+			"temp_kWhCounter_lp${i}:openWB/lp/${i}/kWhCounter:0" \
 			"lp${i}phasen::0" \
 			"lp${i}enabled::1" \
 			"restzeitlp${i}::0" \
