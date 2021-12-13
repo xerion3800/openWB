@@ -77,6 +77,13 @@ if not (jsondata["nrg"] is None):
         print("Ampere auf L1 go-e1: " +str(goe_1A1))
         print("Ampere auf L2 go-e1: " +str(goe_1A2))
         print("Ampere auf L3 go-e1: " +str(goe_1A3))
+    goe_1L1 = jsondata["nrg"][8]*100
+    goe_1L2 = jsondata["nrg"][9]*100
+    goe_1L3 = jsondata["nrg"][7]*100
+    if debug == True:
+        print("Leistung auf L1 go-e1: " +str(goe_1L1))
+        print("Leistung auf L2 go-e1: " +str(goe_1L2))
+        print("Leistung auf L3 go-e1: " +str(goe_1L3))
 
 #go-eCharger Carport
 response = urllib2.urlopen('http://192.168.178.111/status')
@@ -92,6 +99,13 @@ if not (jsondata["nrg"] is None):
         print("Ampere auf L1 go-e2: " +str(goe_2A1))
         print("Ampere auf L2 go-e2: " +str(goe_2A2))
         print("Ampere auf L3 go-e2: " +str(goe_2A3))
+    goe_2L1 = jsondata["nrg"][9]*100
+    goe_2L2 = jsondata["nrg"][7]*100
+    goe_2L3 = jsondata["nrg"][8]*100
+    if debug == True:
+        print("Leistung auf L1 go-e1: " +str(goe_2L1))
+        print("Leistung auf L2 go-e1: " +str(goe_2L2))
+        print("Leistung auf L3 go-e1: " +str(goe_2L3))
 
 #EVU Daten
 reqdata='{"PM1OBJ1":{"FREQ":"","U_AC":"","I_AC":"","P_AC":"","P_TOTAL":""}}'
@@ -120,11 +134,11 @@ if not (jsondata['PM1OBJ1'] ['U_AC'] [2] is None):
 
 #SENEC: Leistung (W) Werte -2345 >> 3000
 if not (jsondata['PM1OBJ1'] ['P_AC'] [0] is None):
-    writeVal('/var/www/html/openWB/ramdisk/bezugw1', jsondata['PM1OBJ1'] ['P_AC'] [0],0,0,0)
+    writeVal('/var/www/html/openWB/ramdisk/bezugw1', jsondata['PM1OBJ1'] ['P_AC'] [0],0,0,goe_1L1 + goe_2L1)
 if not (jsondata['PM1OBJ1'] ['P_AC'] [1] is None):
-    writeVal('/var/www/html/openWB/ramdisk/bezugw2', jsondata['PM1OBJ1'] ['P_AC'] [1],0,0,0)
+    writeVal('/var/www/html/openWB/ramdisk/bezugw2', jsondata['PM1OBJ1'] ['P_AC'] [1],0,0,goe_1L2 + goe_2L3)
 if not (jsondata['PM1OBJ1'] ['P_AC'] [2] is None):
-    writeVal('/var/www/html/openWB/ramdisk/bezugw3', jsondata['PM1OBJ1'] ['P_AC'] [2],0,0,0)
+    writeVal('/var/www/html/openWB/ramdisk/bezugw3', jsondata['PM1OBJ1'] ['P_AC'] [2],0,0,goe_1L3 + goe_2L3)
 
 #SENEC: Strom (A) Werte 0.88 >> 1.67 
 if not (jsondata['PM1OBJ1'] ['I_AC'] [0] is None):
