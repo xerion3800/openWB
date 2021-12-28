@@ -155,7 +155,18 @@ jsondata = json.load(response)
 
 #SENEC: Batterieleistung (W) Werte -345 (Entladen) >> 1200 (laden)
 if not (jsondata['ENERGY'] ['GUI_BAT_DATA_POWER'] is None):
-    writeVal('/var/www/html/openWB/ramdisk/speicherleistung_senec', jsondata['ENERGY'] ['GUI_BAT_DATA_POWER'],0,0,0)
+    writeVal('/var/www/html/openWB/ramdisk/speicherleistung_senec_temp', jsondata['ENERGY'] ['GUI_BAT_DATA_POWER'],0,0,0)
+    f = open('/var/www/html/openWB/ramdisk/speicherleistung_senec_temp', 'r')
+    value = f.read()
+    f.close()
+    value = int(value)
+    if value > -10 and value < -2:
+        f = open('/var/www/html/openWB/ramdisk/speicherleistung_senec','w')
+        f.write("0")
+        f.close()
+    else:
+        writeVal('/var/www/html/openWB/ramdisk/speicherleistung_senec', jsondata['ENERGY'] ['GUI_BAT_DATA_POWER'],0,0,0)
+
 
 #SENEC: Fuellmenge in Prozent Werte 10 >> 55 >> 100
 if not (jsondata['ENERGY'] ['GUI_BAT_DATA_FUEL_CHARGE'] is None):
