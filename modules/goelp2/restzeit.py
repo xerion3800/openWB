@@ -35,12 +35,12 @@ def loadpoint():
     hyundai_accu_capacity = fh.get_device_attribute(fhem_device_hyundai, "Accu")*0.01
     loadpoint_assignment = fh.get_device_reading(fhem_device_lp, "loadpoint_assignment")
     loadpoint_assignment = loadpoint_assignment["Value"]
-    openWBLog("Loadpoint Assignment:"+str(loadpoint_assignment))
+    # openWBLog("Loadpoint Assignment:"+str(loadpoint_assignment))
     if loadpoint_assignment == "LP1_Hyundai_LP2_Cupra":
         kwh_percent = cupra_accu_capacity
     elif loadpoint_assignment == "LP2_Hyundai_LP1_Cupra":
         kwh_percent = hyundai_accu_capacity
-    openWBLog("Accu Capacity:"+str(kwh_percent))
+    # openWBLog("Accu Capacity:"+str(kwh_percent))
     return kwh_percent
 
 def readVal(filePath):
