@@ -41,27 +41,28 @@ is_configured_cp7=$lastmanagementlp7
 is_configured_cp8=$lastmanagementlp8
 
 # wenn Pushover oder Telegram aktiviert, Zählerstände senden
-if ((pushbenachrichtigung == "1")) || ((telebenachrichtigung == "1")); then
-	if [ $(date +%d) == "01" ]; then
+if (( pushbenachrichtigung == "1" )) || (( telebenachrichtigung == "1" )) ; then
+	if [ $(date +%d) == "01" ] ; then
 		msg_header="Zählerstände zum $(date +%d.%m.%y:)"$'\n'
 		msg_text=""
 		lp_count=0
-		for ((i = 1; i <= 8; i++)); do
+		for (( i=1; i<=8; i++ ))
+		do
 			var_name_energy="ll$i"
 			var_name_cpname="lp${i}name"
 			var_name_cp_configured="is_configured_cp${i}"
-			if ((${!var_name_cp_configured} == "1")); then
+			if (( ${!var_name_cp_configured} == "1" )) ; then
 				((lp_count++))
 				msg_text+="LP$i (${!var_name_cpname}): ${!var_name_energy} kWh"$'\n'
 			fi
 		done
-		if ((lp_count > 1)); then
+		if (( lp_count > 1 )) ; then
 			msg_text+="Gesamtzähler: $llg kWh"
 		fi
-		if ((pushbenachrichtigung == "1")); then
+		if (( pushbenachrichtigung == "1" )); then
 			$OPENWBBASEDIR/runs/pushover.sh "$msg_header$msg_text"
 		fi
-		if ((telebenachrichtigung == "1")); then
+		if (( telebenachrichtigung == "1" )); then
 			$OPENWBBASEDIR/runs/telegram.sh "$msg_header$msg_text"
 		fi
 	fi
