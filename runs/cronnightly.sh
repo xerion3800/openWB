@@ -40,26 +40,30 @@ is_configured_cp6=$lastmanagementlp6
 is_configured_cp7=$lastmanagementlp7
 is_configured_cp8=$lastmanagementlp8
 
-# wenn Pushover aktiviert, Zählerstände senden
-if (( pushbenachrichtigung == "1" )) ; then
-	if [ $(date +%d) == "01" ] ; then
+# wenn Pushover oder Telegram aktiviert, Zählerstände senden
+if ((pushbenachrichtigung == "1")) || ((telebenachrichtigung == "1")); then
+	if [ $(date +%d) == "01" ]; then
 		msg_header="Zählerstände zum $(date +%d.%m.%y:)"$'\n'
 		msg_text=""
 		lp_count=0
-		for (( i=1; i<=8; i++ ))
-		do
+		for ((i = 1; i <= 8; i++)); do
 			var_name_energy="ll$i"
 			var_name_cpname="lp${i}name"
 			var_name_cp_configured="is_configured_cp${i}"
-			if (( ${!var_name_cp_configured} == "1" )) ; then
+			if ((${!var_name_cp_configured} == "1")); then
 				((lp_count++))
 				msg_text+="LP$i (${!var_name_cpname}): ${!var_name_energy} kWh"$'\n'
 			fi
 		done
-		if (( lp_count > 1 )) ; then
+		if ((lp_count > 1)); then
 			msg_text+="Gesamtzähler: $llg kWh"
 		fi
-		$OPENWBBASEDIR/runs/pushover.sh "$msg_header$msg_text"
+		if ((pushbenachrichtigung == "1")); then
+			$OPENWBBASEDIR/runs/pushover.sh "$msg_header$msg_text"
+		fi
+		if ((telebenachrichtigung == "1")); then
+			$OPENWBBASEDIR/runs/telegram.sh "$msg_header$msg_text"
+		fi
 	fi
 fi
 
@@ -122,9 +126,9 @@ if [[ $verbraucher2_typ == "tasmota" ]]; then
 	fi
 fi
 
-curl --connect-timeout 10 -s https://raw.githubusercontent.com/snaptec/openWB/master/web/version > /var/www/html/openWB/ramdisk/vnightly
-curl --connect-timeout 10 -s https://raw.githubusercontent.com/snaptec/openWB/beta/web/version > /var/www/html/openWB/ramdisk/vbeta
-curl --connect-timeout 10 -s https://raw.githubusercontent.com/snaptec/openWB/stable/web/version > /var/www/html/openWB/ramdisk/vstable
+curl --connect-timeout 10 -s https://raw.githubusercontent.com/xerion3800/openWB/master/web/version > /var/www/html/openWB/ramdisk/vnightly
+curl --connect-timeout 10 -s https://raw.githubusercontent.com/xerion3800/openWB/beta/web/version > /var/www/html/openWB/ramdisk/vbeta
+curl --connect-timeout 10 -s https://raw.githubusercontent.com/xerion3800/openWB/stable/web/version > /var/www/html/openWB/ramdisk/vstable
 
 if [[ -s /var/www/html/openWB/ramdisk/randomSleepValue ]]; then
 	randomSleep=$(</var/www/html/openWB/ramdisk/randomSleepValue)
