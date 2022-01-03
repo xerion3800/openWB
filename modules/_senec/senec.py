@@ -240,9 +240,12 @@ if not (jsondata['ENERGY'] ['GUI_BAT_DATA_POWER'] is None):
     f.close()
     value = int(value)
     if value > -10 and value < -2:
-        f = open('/var/www/html/openWB/ramdisk/speicherleistung_senec','w')
-        f.write("0")
-        f.close()
+        if writing_in_file:
+            f = open('/var/www/html/openWB/ramdisk/speicherleistung_senec','w')
+            f.write("0")
+            f.close()
+        if writing_mqtt:
+            client.publish('openWB/set/houseBattery/W', '0', qos=1, retain=True)
     else:
         if writing_in_file:
             writeVal('/var/www/html/openWB/ramdisk/speicherleistung_senec', jsondata['ENERGY'] ['GUI_BAT_DATA_POWER'],0,0,0)
