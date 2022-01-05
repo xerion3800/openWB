@@ -71,7 +71,7 @@ else:
     offset_time = 3600
 
 
-if current_watt >= 1:
+if current_watt >= 1 and current_soc >= 1:
     estimate_time = soc_in_kwh / current_watt
     # print(estimate_time)
     estimate_time = round(estimate_time,2)
