@@ -116,7 +116,7 @@ if [[ $? == "0" ]] ; then
     mosquitto_pub -t openWB/lp/2/lastSeen -r -m "$lastseen"
 	
 	soc=$(</var/www/html/openWB/ramdisk/soc1)
-	if [[ $soc >= "1"]] ; then
+	if [[ $soc >= "1" ]] ; then
 		goelp2estimatetime=$(</var/www/html/openWB/ramdisk/goelp2estimatetime)
 		mosquitto_pub -t openWB/lp/2/goeestimatetime -r -m "$goelp2estimatetime"
 	fi
