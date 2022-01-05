@@ -257,12 +257,15 @@ if not (jsondata['ENERGY'] ['GUI_BAT_DATA_POWER'] is None):
 if not (jsondata['ENERGY'] ['GUI_BAT_DATA_FUEL_CHARGE'] is None):
     if writing_in_file:
         writeVal('/var/www/html/openWB/ramdisk/speichersoc_senec', jsondata['ENERGY'] ['GUI_BAT_DATA_FUEL_CHARGE'],0,0,0)
-    mqttVal('openWB/set/houseBattery/%Soc', jsondata['ENERGY'] ['GUI_BAT_DATA_FUEL_CHARGE'],0,0,0)
+    if writing_mqtt:
+        mqttVal('openWB/set/houseBattery/%Soc', jsondata['ENERGY'] ['GUI_BAT_DATA_FUEL_CHARGE'],0,0,0)
 
 #SENEC: Leistung Wechselrichter in (W) Werte 
-# if not (jsondata['ENERGY'] ['GUI_INVERTER_POWER'] is None):
-#     writeVal('/var/www/html/openWB/ramdisk/pvwatt_senec', jsondata['ENERGY'] ['GUI_INVERTER_POWER'],0,0,0)
-
+if not (jsondata['ENERGY'] ['GUI_INVERTER_POWER'] is None):
+    if writing_in_file:
+        writeVal('/var/www/html/openWB/ramdisk/pvwatt_senec', jsondata['ENERGY'] ['GUI_INVERTER_POWER'],0,0,0)
+    if writing_mqtt:
+        mqttVal('openWB/set/pv/1/W', jsondata['ENERGY'] ['GUI_INVERTER_POWER'],0,0,0)
 
 #Statistik
 reqdata='{"STATISTIC":{"LIVE_BAT_CHARGE":"","LIVE_BAT_DISCHARGE":"","LIVE_GRID_EXPORT":"","LIVE_GRID_IMPORT":"","LIVE_HOUSE_CONS":"","LIVE_PV_GEN":""}}'
@@ -298,5 +301,8 @@ if not (jsondata['STATISTIC'] ['LIVE_GRID_EXPORT'] is None):
         mqttVal('openWB/set/evu/WhExported', jsondata['STATISTIC'] ['LIVE_GRID_EXPORT'],1000,0,0)
 
 #SENEC: Gesamt PV Erzeugung (vom WR)  Werte (Wh) 7085000
-# if not (jsondata['STATISTIC'] ['LIVE_PV_GEN'] is None):
-#     writeVal('/var/www/html/openWB/ramdisk/pvewh_senec', jsondata['STATISTIC'] ['LIVE_PV_GEN'],1000,0,0)
+if not (jsondata['STATISTIC'] ['LIVE_PV_GEN'] is None):
+    if writing_in_file:
+        writeVal('/var/www/html/openWB/ramdisk/pvewh_senec', jsondata['STATISTIC'] ['LIVE_PV_GEN'],1000,0,0)
+    if writing_mqtt:
+        mqttVal('openWB/set/pv/1/WhCounter', jsondata['STATISTIC'] ['LIVE_PV_GEN'],1000,0,0)
