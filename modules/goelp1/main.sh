@@ -118,6 +118,9 @@ if [[ $? == "0" ]] ; then
 	echo $lastseen >/var/www/html/openWB/ramdisk/goelp1lastcontact
     mosquitto_pub -t openWB/lp/1/lastSeen -r -m "$lastseen"
 	
-	goelp1estimatetime=$(</var/www/html/openWB/ramdisk/goelp1estimatetime)
-	mosquitto_pub -t openWB/lp/1/goeestimatetime -r -m "$goelp1estimatetime"
+	soc=$(</var/www/html/openWB/ramdisk/soc)
+	if [[ $soc >= "1"]] ; then
+		goelp1estimatetime=$(</var/www/html/openWB/ramdisk/goelp1estimatetime)
+		mosquitto_pub -t openWB/lp/1/goeestimatetime -r -m "$goelp1estimatetime"
+	fi
 fi
