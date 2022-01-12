@@ -172,11 +172,11 @@ jsondata = json.load(response)
 # echo $evupf3 > /var/www/html/openWB/ramdisk/evupf3
 
 #SENEC: Gesamtleistung (W) Werte -3000  >> 3000
-if not (jsondata['PM1OBJ1'] ['P_TOTAL'] is None):
-    if writing_in_file:
-        writeVal('/var/www/html/openWB/ramdisk/wattbezug_senec', jsondata['PM1OBJ1'] ['P_TOTAL'],0,0,goe_1 + goe_2)
-    if writing_mqtt:
-        mqttVal('openWB/set/evu/W', jsondata['PM1OBJ1'] ['P_TOTAL'],0,0,goe_1 + goe_2)
+# if not (jsondata['PM1OBJ1'] ['P_TOTAL'] is None):
+#     if writing_in_file:
+#         writeVal('/var/www/html/openWB/ramdisk/wattbezug_senec', jsondata['PM1OBJ1'] ['P_TOTAL'],0,0,goe_1 + goe_2)
+#     if writing_mqtt:
+#         mqttVal('openWB/set/evu/W', jsondata['PM1OBJ1'] ['P_TOTAL'],0,0,goe_1 + goe_2)
 
 #SENEC: Frequenz(Hz) Werte 49.00 >> 50.00
 if not (jsondata['PM1OBJ1'] ['FREQ'] is None):
@@ -287,18 +287,18 @@ if not (jsondata['STATISTIC'] ['LIVE_BAT_DISCHARGE'] is None):
         mqttVal('openWB/set/houseBattery/WhExported', jsondata['STATISTIC'] ['LIVE_BAT_DISCHARGE'],1000,0,0)
 
 #SENEC: Gesamtimport (Wh) Werte  1809000
-if not (jsondata['STATISTIC'] ['LIVE_GRID_IMPORT'] is None):
-    if writing_in_file:
-        writeVal('/var/www/html/openWB/ramdisk/bezugkwh_senec', jsondata['STATISTIC'] ['LIVE_GRID_IMPORT'],1000,0,0)
-    if writing_mqtt:
-        mqttVal('openWB/set/evu/WhImported', jsondata['STATISTIC'] ['LIVE_GRID_IMPORT'],1000,0,0)
+# if not (jsondata['STATISTIC'] ['LIVE_GRID_IMPORT'] is None):
+#     if writing_in_file:
+#         writeVal('/var/www/html/openWB/ramdisk/bezugkwh_senec', jsondata['STATISTIC'] ['LIVE_GRID_IMPORT'],1000,0,0)
+#     if writing_mqtt:
+#         mqttVal('openWB/set/evu/WhImported', jsondata['STATISTIC'] ['LIVE_GRID_IMPORT'],1000,0,0)
     
 # SENEC: Gesamteinspeisung Werte (Wh) 7085000
-if not (jsondata['STATISTIC'] ['LIVE_GRID_EXPORT'] is None):
-    if writing_in_file:
-        writeVal('/var/www/html/openWB/ramdisk/einspeisungkwh_senec', jsondata['STATISTIC'] ['LIVE_GRID_EXPORT'],1000,0,0)
-    if writing_mqtt:
-        mqttVal('openWB/set/evu/WhExported', jsondata['STATISTIC'] ['LIVE_GRID_EXPORT'],1000,0,0)
+# if not (jsondata['STATISTIC'] ['LIVE_GRID_EXPORT'] is None):
+#     if writing_in_file:
+#         writeVal('/var/www/html/openWB/ramdisk/einspeisungkwh_senec', jsondata['STATISTIC'] ['LIVE_GRID_EXPORT'],1000,0,0)
+#     if writing_mqtt:
+#         mqttVal('openWB/set/evu/WhExported', jsondata['STATISTIC'] ['LIVE_GRID_EXPORT'],1000,0,0)
 
 #SENEC: Gesamt PV Erzeugung (vom WR)  Werte (Wh) 7085000
 if not (jsondata['STATISTIC'] ['LIVE_PV_GEN'] is None):
