@@ -2,7 +2,6 @@
 Berechnet die importierte und exportierte Leistung, wenn der Zähler / PV-Modul / Speicher diese nicht liefert.
 """
 import os
-import re
 import paho.mqtt.client as mqtt
 import time
 import typing
@@ -140,20 +139,39 @@ class SimCountLegacy:
         except Exception as e:
             process_error(e)
 
-    def __get_topic(self, prefix: str) -> str:
-        """ ermittelt das zum Präfix gehörende Topic."""
+
+class Restore():
+    def restore_value(self, value: str, prefix: str) -> float:
         try:
-            if prefix == "bezug":
-                topic = "evu"
-            elif prefix == "pv":
-                topic = prefix
-            elif prefix == "speicher":
-                topic = "housebattery"
+            self.temp = ""
+            self.value = value
+            self.prefix = prefix
+            client = mqtt.Client("openWB-simcount_restore-" + str(self.__getserial()))
+
+            client.on_connect = self.__on_connect
+            client.on_message = self.__on_message
+
+            client.connect("localhost", 1883)
+            client.loop_start()
+            time.sleep(0.5)
+            client.loop_stop()
+            try:
+                result = float(self.temp)
+            except ValueError:
+                log.MainLogger().info("Keine Werte auf dem Broker gefunden. neue Simulation gestartet.")
+                self.temp = "0"
+                result = 0
+            write_ramdisk_file(prefix+value, self.temp)
+            if value == "watt0pos":
+                log.MainLogger().info(
+                    "loadvars read openWB/"+get_topic(self.prefix)+"/WHImported_temp from mosquito "+str(self.temp))
             else:
-                raise ModuleError("Fehler im Modul simcount: Unbekannter Präfix", ModuleErrorLevel.ERROR)
-            return topic
-        except Exception as e:
-            process_error(e)
+                log.MainLogger().info(
+                    "loadvars read openWB/"+get_topic(self.prefix)+"/WHExport_temp from mosquito "+str(self.temp))
+        except Exception:
+            log.MainLogger().exception("Fehler in der Restore-Klasse")
+        finally:
+            return result
 
     def read_ramdisk_file(self, name: str):
         try:
