@@ -119,7 +119,7 @@ def mqttVal(topic,stringValue,multiplier,decimalpoints,offset):
     
 
 #go-eCharger Parkplatz
-response = urllib2.urlopen('http://192.168.178.77/status')
+response = urllib2.urlopen('http://192.168.178.121/status')
 jsondata = json.load(response)
 if not (jsondata["nrg"] is None):
     goe_1 = jsondata["nrg"][11]*10
