@@ -1,0 +1,9 @@
+
+fhem:
+   fhemuser: fort 
+   fhempassword: user1@
+   fhemip: 192.168.178.75
+   fhemport: 1883
+
+   
+   

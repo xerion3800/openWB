@@ -3,9 +3,19 @@ from datetime import datetime
 from time import gmtime
 from time import strftime
 import fhem
+import yaml
+
+path = 'config.yaml'
+
+with open(path, "r") as ymlfile:
+    cfg = yaml.load(ymlfile, Loader=yaml.FullLoader)
 
 #################################### FHEM  ########################################
-fh = fhem.Fhem(server="192.168.178.75", protocol="http", port=8083, username="fort", password="user1@")
+fhemuser = cfg['fhem']['fhemuser']
+fhempassword = cfg['fhem']['fhempassword'] 
+fhemip = cfg['fhem']['fhempip'] 
+fhemport = cfg['fhem']['fhemport'] 
+fh = fhem.Fhem(server=fhemip, protocol="http", port=fhemport, username=fhemuser, password=fhempassword)
 
 fhem_device_hyundai = "Bluelink"
 fhem_device_cupra = "my_cupra"
