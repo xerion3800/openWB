@@ -14,7 +14,7 @@ if [[ "$1" == "1" ]]; then
 		mosquitto_pub -r -t openWB/set/isss/U1p3p -h $chargep1ip -m "1"
 	fi
 	if [[ $evsecon == "goe" ]]; then
-		sudo python runs/u1p3pgoe.py -a $goeiplp1 -p 1
+		sudo python runs/u1p3pgoe.py -v -a $goeiplp1 -p 1
 	fi
 	if [[ $evsecon == "owbpro" ]]; then
 		curl -s -X POST --data "phasetarget=1" $owbpro1ip/connect.php
@@ -31,7 +31,7 @@ if [[ "$1" == "1" ]]; then
 		mosquitto_pub -r -t openWB/set/isss/U1p3p -h $chargep2ip -m "1"
 	fi
 	if [[ $lastmanagement == 1 && $evsecons1 == "goe" ]]; then
-		sudo python runs/u1p3pgoe.py -a $goeiplp2 -p 1
+		sudo python runs/u1p3pgoe.py -v -a $goeiplp2 -p 1
 	fi
 	if [[ $lastmanagement == 1 && $evsecons1 == "owbpro" ]]; then
 		curl -s -X POST --data "phasetarget=1" $owbpro2ip/connect.php
@@ -48,7 +48,7 @@ if [[ "$1" == "1" ]]; then
 		sudo python runs/u1p3premote.py -a $evseiplp3 -i $u1p3plp3id -p 1 -d $u1p3ppause
 	fi
 	if [[ $lastmanagements2 == 1 && $evsecons2 == "goe" ]]; then
-		sudo python runs/u1p3pgoe.py -a $goeiplp3 -p 1
+		sudo python runs/u1p3pgoe.py -v -a $goeiplp3 -p 1
 	fi
 	# chargepoint 4
 	if [[ $lastmanagementlp4 == 1 && $evseconlp4 == "extopenwb" ]]; then
@@ -195,13 +195,13 @@ if [[ "$1" == "3" ]]; then
 		sudo python runs/u1p3premote.py -a $evseiplp8 -i $u1p3plp8id -p 3 -d $u1p3ppause
 	fi
 	if [[ $evsecon == "goe" ]]; then
-		sudo python runs/u1p3pgoe.py -a $goeiplp1 -p 3  -m $minimalapv
+		sudo python runs/u1p3pgoe.py -v -a $goeiplp1 -p 3  -m $minimalapv
 	fi
 	if [[ $lastmanagement == 1 && $evsecons1 == "goe" ]]; then
-		sudo python runs/u1p3pgoe.py -a $goeiplp2 -p 3  -m $minimalapv
+		sudo python runs/u1p3pgoe.py -v -a $goeiplp2 -p 3  -m $minimalapv
 	fi
 	if [[ $lastmanagements2 == 1 && $evsecons2 == "goe" ]]; then
-		sudo python runs/u1p3pgoe.py -a $goeiplp3 -p 3  -m $minimalapv
+		sudo python runs/u1p3pgoe.py -v -a $goeiplp3 -p 3  -m $minimalapv
 	fi
 	echo 3 > ramdisk/u1p3pstat
 fi
