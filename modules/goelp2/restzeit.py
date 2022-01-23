@@ -5,7 +5,7 @@ from time import strftime
 import fhem
 import yaml
 
-path = 'config.yaml'
+path = '/var/www/html/openWB/config.yaml'
 
 with open(path, "r") as ymlfile:
     cfg = yaml.load(ymlfile, Loader=yaml.FullLoader)
