@@ -13,7 +13,7 @@ with open(path, "r") as ymlfile:
 #################################### FHEM  ########################################
 fhemuser = cfg['fhem']['fhemuser']
 fhempassword = cfg['fhem']['fhempassword'] 
-fhemip = cfg['fhem']['fhempip'] 
+fhemip = cfg['fhem']['fhemip'] 
 fhemport = cfg['fhem']['fhemport'] 
 fh = fhem.Fhem(server=fhemip, protocol="http", port=fhemport, username=fhemuser, password=fhempassword)
 
