@@ -29,9 +29,8 @@ class FroniusBat:
         self.__store = get_bat_value_store(component_config["id"])
         self.component_info = ComponentInfo.from_component_config(component_config)
 
-    def update(self, bat: bool) -> None:
+    def update(self) -> None:
         log.MainLogger().debug("Komponente "+self.component_config["name"]+" auslesen.")
-        gen24 = self.component_config["configuration"]["gen24"]
         meter_id = str(self.device_config["meter_id"])
 
         resp_json = req.get_http_session().get(
@@ -45,12 +44,11 @@ class FroniusBat:
             power = 0
 
         try:
-            if gen24:
-                resp_json_id = dict(resp_json["Body"]["Data"])
-                soc = float(resp_json_id.get(meter_id)["Controller"]["StateOfCharge_Relative"])
+            resp_json_id = dict(resp_json["Body"]["Data"])
+            if "Inverters" in resp_json_id:
+                soc = float(resp_json_id["Inverters"]["1"]["SOC"])
             else:
-                resp_json_id = dict(resp_json["Body"]["Data"]["Inverters"])
-                soc = float(resp_json_id.get(meter_id)["SOC"])
+                soc = float(resp_json_id.get(meter_id)["Controller"]["StateOfCharge_Relative"])
         except TypeError:
             # Wenn WR aus bzw. im Standby (keine Antwort), ersetze leeren Wert durch eine 0.
             soc = 0
