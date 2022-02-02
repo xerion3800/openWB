@@ -101,8 +101,8 @@ class SimCountLegacy:
                                        str(counter_import_previous) + " Export: " + str(counter_export_previous) +
                                        " Leistung: " + str(power_previous))
                 start_new = False
-            self.write_ramdisk_file(prefix+'sec0', "%22.6f" % timestamp_present)
-            self.write_ramdisk_file(prefix+'wh0', power_present)
+            write_ramdisk_file(prefix+'sec0', "%22.6f" % timestamp_present)
+            write_ramdisk_file(prefix+'wh0', int(power_present))
 
             if start_new:
                 return 0, 0
