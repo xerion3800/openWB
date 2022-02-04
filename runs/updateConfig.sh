@@ -747,6 +747,42 @@ updateConfig(){
 	if ! grep -Fq "wr2_piko2_url=" $ConfigFile; then
 		echo "wr2_piko2_url='https://url'" >> $ConfigFile
 	fi
+	if ! grep -Fq "carnetuser=" $ConfigFile; then
+		echo "carnetuser='user'" >> $ConfigFile
+	fi
+	if ! grep -Fq "carnetpass=" $ConfigFile; then
+		echo "carnetpass=''" >> $ConfigFile
+	else
+		sed -i "/carnetpass='/b; s/^carnetpass=\(.*\)/carnetpass=\'\1\'/g" $ConfigFile
+	fi
+	if ! grep -Fq "soccarnetintervall=" $ConfigFile; then
+		echo "soccarnetintervall=10" >> $ConfigFile
+	fi
+	if ! grep -Fq "soc_vag_type=" $ConfigFile; then
+		echo "soc_vag_type=vw" >> $ConfigFile
+	fi
+	if ! grep -Fq "soc_vag_username=" $ConfigFile; then
+		echo "soc_vag_username=user" >> $ConfigFile
+	fi
+	if ! grep -Fq "soc_vag_password=" $ConfigFile; then
+		echo "soc_vag_password=''" >> $ConfigFile
+	else
+		sed -i "/soc_vag_password='/b; s/^soc_vag_password=\(.*\)/soc_vag_password=\'\1\'/g" $ConfigFile
+	fi
+	# remove line with syntax error from config
+	if grep -Fq "soc_vag_vin=vin (WVWZZZ...)" $ConfigFile; then
+		sed -i '/^soc_vag_vin=/d' $ConfigFile
+	fi
+	if ! grep -Fq "soc_vag_vin=" $ConfigFile; then
+		echo "soc_vag_vin='WVWZZZ...'" >> $ConfigFile
+	fi
+	if ! grep -Fq "soc_vag_intervall=" $ConfigFile; then
+		echo "soc_vag_intervall=60" >> $ConfigFile
+		echo "soc_vag_intervallladen=10" >> $ConfigFile
+	fi
+	if ! grep -Fq "soc2type=" $ConfigFile; then
+		echo "soc2type=vw" >> $ConfigFile
+	fi
 	if ! grep -Fq "soc2intervallladen=" $ConfigFile; then
 		echo "soc2intervallladen=10" >> $ConfigFile
 	fi
@@ -989,6 +1025,9 @@ updateConfig(){
 		echo "carnetlp2pass=''" >> $ConfigFile
 	else
 		sed -i "/carnetlp2pass='/b; s/^carnetlp2pass=\(.*\)/carnetlp2pass=\'\1\'/g" $ConfigFile
+	fi
+	if ! grep -Fq "soccarnetlp2intervall=" $ConfigFile; then
+		echo "soccarnetlp2intervall=10" >> $ConfigFile
 	fi
 	if ! grep -Fq "soc_teslalp2_username=" $ConfigFile; then
 		echo "soc_teslalp2_username=deine@email.com" >> $ConfigFile
@@ -1555,6 +1594,17 @@ updateConfig(){
 	if ! grep -Fq "wryoulessalt=" $ConfigFile; then
 		echo "wryoulessalt=0" >> $ConfigFile
 	fi
+	if ! grep -Fq "soc_audi_username=" $ConfigFile; then
+		echo "soc_audi_username=demo@demo.de" >> $ConfigFile
+	fi
+	if ! grep -Fq "soc_audi_passwort=" $ConfigFile; then
+		echo "soc_audi_passwort=''" >> $ConfigFile
+	else
+		sed -i "/soc_audi_passwort='/b; s/^soc_audi_passwort=\(.*\)/soc_audi_passwort=\'\1\'/g" $ConfigFile
+	fi
+	if ! grep -Fq "soc_audi_vin=" $ConfigFile; then
+		echo "soc_audi_vin=VIN" >> $ConfigFile
+	fi
 	if ! grep -Fq "soc2user=" $ConfigFile; then
 		echo "soc2user=demo@demo.de" >> $ConfigFile
 	fi
@@ -1960,6 +2010,17 @@ updateConfig(){
 		echo "soc_eq_vin_lp2=VIN" >> $ConfigFile
 		echo "soc_eq_cb_lp2=http://openWB/openWB/modules/soc_eq/callback_lp2.php" >> $ConfigFile
 	fi
+	if ! grep -Fq "soc_id_username=" $ConfigFile; then
+		echo "soc_id_username=User" >> $ConfigFile
+	fi
+	if ! grep -Fq "soc_id_passwort=" $ConfigFile; then
+		echo "soc_id_passwort=''" >> $ConfigFile
+	else
+		sed -i "/soc_id_passwort='/b; s/^soc_id_passwort=\(.*\)/soc_id_passwort=\'\1\'/g" $ConfigFile
+	fi
+	if ! grep -Fq "soc_id_vin=" $ConfigFile; then
+		echo "soc_id_vin=VIN" >> $ConfigFile
+	fi
 	if ! grep -Fq "soc2vin=" $ConfigFile; then
 		echo "soc2vin=" >> $ConfigFile
 		echo "soc2intervall=60" >> $ConfigFile
@@ -2100,10 +2161,10 @@ updateConfig(){
 		echo "alphav123=0" >> $ConfigFile
 	fi
 	if grep -Fq "socmodul=soc_bluelink" $ConfigFile; then
-		sed -i "s/socmodul=soc_bluelink/socmodul=soc_kia/g" $ConfigFile
+		sed -i "s/^socmodul=soc_bluelink/socmodul=soc_kia/g" $ConfigFile
 	fi
 	if grep -Fq "socmodul1=soc_bluelinklp2" $ConfigFile; then
-		sed -i "s/socmodul1=soc_bluelinklp2/socmodul=soc_kialp2/g" $ConfigFile
+		sed -i "s/^socmodul1=soc_bluelinklp2/socmodul=soc_kialp2/g" $ConfigFile
 	fi
 	if ! grep -Fq "virtual_ip_eth0=" $ConfigFile; then
 		echo "virtual_ip_eth0='192.168.193.5'" >> $ConfigFile
