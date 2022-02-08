@@ -17,7 +17,8 @@ def get_default_config() -> dict:
     return {
         "name": "SMA Smarthome Manager",
         "type": "sma",
-        "id": 0
+        "id": 0,
+        "configuration": {}
     }
 
 
@@ -77,12 +78,13 @@ class Device(AbstractDevice):
                     sma_serials = self._components[component].component_config["configuration"]["serials"]
                     if sma_serials is None or sma_serials == 'none' or str(sma_data['serial']) == sma_serials:
                         self._components[component].update(sma_data)
+                        return True
         else:
             log.MainLogger().warning(
                 self.device_config["name"] +
                 ": Es konnten keine Werte gelesen werden, da noch keine Komponenten konfiguriert wurden."
             )
-        return True
+        return False
 
 
 def read_legacy(component_type: str, serials: Optional[str] = None, num: Optional[int] = None) -> None:
@@ -100,6 +102,9 @@ def read_legacy(component_type: str, serials: Optional[str] = None, num: Optiona
             ','.join(COMPONENT_TYPE_TO_MODULE.keys())
         )
     component_config["id"] = num
+    # serials-Feld kann auch leer bleiben
+    if serials == "":
+        serials = None
     component_config["configuration"]["serials"] = serials
     dev.add_component(component_config)
 

@@ -37,6 +37,7 @@ mkdir -p /var/www/html/openWB/web/logging/data/monthly
 mkdir -p /var/www/html/openWB/web/logging/data/ladelog
 mkdir -p /var/www/html/openWB/web/logging/data/v001
 sudo chmod -R 777 /var/www/html/openWB/web/logging/data/
+sudo chmod +x /var/www/html/openWB/packages/*.sh
 
 # update openwb.conf
 updateConfig
@@ -206,25 +207,26 @@ fi
 
 # check for needed packages
 echo "packages 1..."
+sudo apt-get -qq update
+sleep 1
+
 if python -c "import evdev" &> /dev/null; then
 	echo 'evdev installed...'
 else
 	sudo pip install evdev
 fi
 if ! [ -x "$(command -v sshpass)" ];then
-	sudo apt-get -qq update
-	sleep 1
 	sudo apt-get -qq install sshpass
 fi
 if [ $(dpkg-query -W -f='${Status}' php-gd 2>/dev/null | grep -c "ok installed") -eq 0 ];
 then
-	sudo apt-get -qq update
-	sleep 1
-	sudo apt-get -qq install -y php-gd
-	sleep 1
-	sudo apt-get -qq install -y php7.0-xml
+	sudo apt-get -qq install -y php-gd php7.0-xml
 fi
-
+# required package for soc_vwid
+if [ $(dpkg-query -W -f='${Status}' libxslt1-dev 2>/dev/null | grep -c "ok installed") -eq 0 ];
+then
+	sudo apt-get -qq install -y libxslt1-dev
+fi
 # no need to reload config
 # . /var/www/html/openWB/loadconfig.sh
 
@@ -243,7 +245,6 @@ sudo cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 
 
 if [ ! -f /home/pi/ssl_patched ]; then
-	sudo apt-get update
 	sudo apt-get -qq install -y openssl libcurl3 curl libgcrypt20 libgnutls30 libssl1.1 libcurl3-gnutls libssl1.0.2 php7.0-cli php7.0-gd php7.0-opcache php7.0 php7.0-common php7.0-json php7.0-readline php7.0-xml php7.0-curl libapache2-mod-php7.0
 	touch /home/pi/ssl_patched
 fi
@@ -252,7 +253,6 @@ fi
 # check for mosquitto packages
 echo "mosquitto..."
 if [ ! -f /etc/mosquitto/mosquitto.conf ]; then
-	sudo apt-get update
 	sudo apt-get -qq install -y mosquitto mosquitto-clients
 	sudo service mosquitto start
 fi
@@ -308,6 +308,26 @@ if python3 -c "import ipparser" &> /dev/null; then
 	echo 'ipparser installed...'
 else
 	sudo pip3 install ipparser
+fi
+#Prepare for lxml used in soc module libvwid in Python
+if python3 -c "import lxml" &> /dev/null; then
+	echo 'lxml installed...'
+else
+	sudo pip3 install lxml
+fi
+#Prepare for secrets used in soc module libvwid in Python
+VWIDMODULEDIR=$OPENWBBASEDIR/modules/soc_vwid
+if python3 -c import secrets &> /dev/null; then
+	echo 'soc_vwid: python3 secrets installed...'
+	if [ -L $VWIDMODULEDIR/secrets.py ]; then
+		echo 'soc_vwid: remove local python3 secrets.py...'
+		rm $VWIDMODULEDIR/secrets.py
+	fi
+else
+	if [ ! -L $VWIDMODULEDIR/secrets.py ]; then
+		echo 'soc_vwid: enable local python3 secrets.py...'
+		ln -s $VWIDMODULEDIR/_secrets.py $VWIDMODULEDIR/secrets.py
+	fi
 fi
 # update outdated urllib3 for Tesla Powerwall
 pip3 install --upgrade urllib3

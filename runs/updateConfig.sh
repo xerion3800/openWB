@@ -505,6 +505,12 @@ updateConfig(){
 	if ! grep -Fq "soc_tesla_intervall=" $ConfigFile; then
 		echo "soc_tesla_intervall=20" >> $ConfigFile
 	fi
+	if ! grep -Fq "soc_id_intervallladen=" $ConfigFile; then
+		echo "soc_id_intervallladen=20" >> $ConfigFile
+	fi
+	if ! grep -Fq "soc_id_intervall=" $ConfigFile; then
+		echo "soc_id_intervall=120" >> $ConfigFile
+	fi
 	if ! grep -Fq "releasetrain=" $ConfigFile; then
 		echo "releasetrain=stable" >> $ConfigFile
 	fi
@@ -2172,5 +2178,34 @@ updateConfig(){
 	if ! grep -Fq "virtual_ip_wlan0=" $ConfigFile; then
 		echo "virtual_ip_wlan0='192.168.193.6'" >> $ConfigFile
 	fi
+	if ! grep -Fq "evuflexip=" $ConfigFile; then
+		echo "evuflexversion=2" >>$ConfigFile
+		echo "evuflexip='192.168.193.5'" >> $ConfigFile
+		echo "evuflexport=8899" >> $ConfigFile
+		echo "evuflexid=1" >> $ConfigFile
+	fi
+	if ! grep -Fq "pvflexip=" $ConfigFile; then
+		echo "pvflexip='192.168.193.5'" >> $ConfigFile
+		echo "pvflexport=8899" >> $ConfigFile
+		echo "pvflexid=1" >> $ConfigFile
+		echo "pvflexversion=1" >> $ConfigFile
+	fi
+	if ! grep -Fq "pv2flexip=" $ConfigFile; then
+		echo "pv2flexip='192.168.193.5'" >> $ConfigFile
+		echo "pv2flexport=8899" >> $ConfigFile
+		echo "pv2flexid=1" >> $ConfigFile
+		echo "pv2flexversion=1" >> $ConfigFile
+	fi
+	if ! grep -Fq "soc_aiways_user=" $ConfigFile; then
+        echo "soc_aiways_user=''" >> $ConfigFile
+        echo "soc_aiways_pass=''" >> $ConfigFile
+        echo "soc_aiways_vin=''" >> $ConfigFile
+        echo "soc_aiways_intervall=''" >> $ConfigFile
+        echo "soc_aiwayslp2_user=''" >> $ConfigFile
+        echo "soc_aiwayslp2_pass=''" >> $ConfigFile
+        echo "soc_aiwayslp2_vin=''" >> $ConfigFile
+        echo "soc_aiwayslp2_intervall=''" >> $ConfigFile
+    fi
+
 	echo "Config file Update done."
 }
