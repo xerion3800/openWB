@@ -2221,9 +2221,6 @@ updateConfig(){
 	if ! grep -Fq "pingcheckactive=" $ConfigFile; then
 		echo "pingcheckactive=0" >> $ConfigFile
 	fi
-	if ! grep -Fq "froniusmeterlocation=" $ConfigFile; then
-		echo "froniusmeterlocation=0" >> $ConfigFile
-	fi
 	if ! grep -Fq "soc_tronity_client_id_lp1=" $ConfigFile; then
 		{
 			echo "soc_tronity_client_id_lp1=''"
@@ -2278,6 +2275,9 @@ updateConfig(){
 	fi
 	if ! grep -Fq "good_we_id=" $ConfigFile; then
 		echo "good_we_id=247" >> $ConfigFile
+	fi
+	if ! grep -Fq "batterx_ip=" $ConfigFile; then
+		echo "batterx_ip=192.168.0.17" >> $ConfigFile
 	fi
 	if grep -Fq "socmodul=soc_bluelink" $ConfigFile; then
 		sed -i "s/^socmodul=soc_bluelink/socmodul=soc_kia/g" $ConfigFile
