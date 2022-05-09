@@ -39,7 +39,7 @@ if ( "fsp" in status_goe):
 			#Using API V2 the respective call would be /api/set?psm=1
 			if (int(set_fsp_goe['fsp']) == 1 and args.verbose):
 				print ("Umschaltung auf 1 Phase erfolgreich: fsp=%d"%(int(set_fsp_goe['fsp'])))
-		if ( args.phases == 3 and int(status_goe['fsp']) != 0 and int(status_goe['car']) == 2):
+		if ( args.phases == 3 and int(status_goe['fsp']) != 0):
 			if (args.minampere and args.minampere >= 5 and args.minampere <= 32):
 				set_amx_goe = requests.get('http://'+args.address+'/mqtt?payload=amx='+str(args.minampere), timeout = 5).json()
 				#Using API V2 the respective call would be /api/set?ama=args.minampere
