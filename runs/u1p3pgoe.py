@@ -34,7 +34,7 @@ if ( "fsp" in status_goe):
 	try:
 		if(args.verbose):
 			print  ("Phaseneinstellung fsp vorher: %d"%(int(status_goe['fsp'])))
-		if ( args.phases == 1 and int(status_goe['fsp']) != 1 and int(status_goe['car']) == 2):
+		if ( args.phases == 1 and int(status_goe['fsp']) != 1):
 			set_fsp_goe = requests.get('http://'+args.address+'/mqtt?payload=fsp=1', timeout = 5).json()
 			#Using API V2 the respective call would be /api/set?psm=1
 			if (int(set_fsp_goe['fsp']) == 1 and args.verbose):
