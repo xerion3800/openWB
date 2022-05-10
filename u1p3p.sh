@@ -13,6 +13,7 @@ u1p3pswitch(){
 		urwaittime=$(( (16 - u1p3schaltparam) * 60 ))
 		openwbDebugLog "MAIN" 1 "automatische Umschaltung aktiv"
 		openwbDebugLog "MAIN" 1 "Timing Umschaltung: $uhwaittime / $urwaittime"
+		openwbDebugLog "MAIN" 1 "Ladestatus: $ladestatus"
 		if (( ladestatus == 0)); then
 			if (( nachtladenstate == 1 )) || (( nachtladen2state == 1 )); then
 				if (( u1p3pstat != u1p3pnl )); then
@@ -67,7 +68,7 @@ u1p3pswitch(){
 						fi
 					fi
 				fi
-				if (( lademodus == 2 )); then
+				if (( lademodus == 2 && ladestatus == 1 )); then
 					if (( u1p3pstat != u1p3pnurpv )); then
 						if (( u1p3pnurpv == 4 )); then
 							if (( u1p3pstat == 0 )); then
