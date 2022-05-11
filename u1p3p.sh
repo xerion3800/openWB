@@ -21,8 +21,8 @@ u1p3pswitch(){
 		urwaittime=$(( (16 - u1p3schaltparam) * 60 ))
 		openwbDebugLog "MAIN" 1 "automatische Umschaltung aktiv"
 		openwbDebugLog "MAIN" 1 "Timing Umschaltung: $uhwaittime / $urwaittime"
-		openwbDebugLog "MAIN" 0 "Ladung aktiv: LP1: $ladungaktivlp1 LP2: $ladungaktivlp2"
-		openwbDebugLog "MAIN" 0 "Ladung aktiv: $ladungaktiv"
+		openwbDebugLog "MAIN" 1 "Ladung aktiv: LP1: $ladungaktivlp1 LP2: $ladungaktivlp2"
+		openwbDebugLog "MAIN" 1 "Ladung aktiv: $ladungaktiv"
 		if (( ladestatus == 0)); then
 			if (( nachtladenstate == 1 )) || (( nachtladen2state == 1 )); then
 				if (( u1p3pstat != u1p3pnl )); then
@@ -46,7 +46,7 @@ u1p3pswitch(){
 						openwbDebugLog "MAIN" 1 "auf $u1p3psofort Phasen geaendert"
 					fi
 				fi
-				# Regelung nur wenn Ladung aktiv ist
+				# Umschaltung nur wenn Ladung aktiv ist
 				if (( lademodus == 1 && ladungaktiv == 1 )); then
 					if (( u1p3pstat != u1p3pminundpv )); then
 						if (( u1p3pminundpv == 4 )); then
@@ -78,7 +78,7 @@ u1p3pswitch(){
 						fi
 					fi
 				fi
-				# Regelung nur wenn Ladung aktiv ist
+				# Umschaltung nur wenn Ladung aktiv ist
 				if (( lademodus == 2 && ladungaktiv == 1 )); then
 					if (( u1p3pstat != u1p3pnurpv )); then
 						if (( u1p3pnurpv == 4 )); then
@@ -168,7 +168,8 @@ u1p3pswitch(){
 						openwbDebugLog "MAIN" 1 "auf $u1p3psofort Phasen geaendert"
 					fi
 				fi
-				if (( lademodus == 1 )); then
+				# Umschaltung nur wenn Ladung aktiv ist
+				if (( lademodus == 1 && ladungaktiv == 1 )); then
 					if (( u1p3pstat != u1p3pminundpv )); then
 						if (( u1p3pminundpv == 4 )); then
 							oldll=$(<ramdisk/llsoll)
@@ -272,7 +273,8 @@ u1p3pswitch(){
 						fi
 					fi
 				fi
-				if (( lademodus == 2 )); then
+				# Umschaltung nur wenn Ladung aktiv ist
+				if (( lademodus == 2 && ladungaktiv == 1 )); then
 					if (( u1p3pstat != u1p3pnurpv )); then
 						if (( u1p3pnurpv == 4 )); then
 							oldll=$(<ramdisk/llsoll)
