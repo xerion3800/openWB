@@ -381,9 +381,9 @@ at_reboot() {
 
 	# update current published versions
 	echo "load versions..."
-	curl --connect-timeout 10 -s https://raw.githubusercontent.com/snaptec/openWB/master/web/version > "$OPENWBBASEDIR/ramdisk/vnightly"
-	curl --connect-timeout 10 -s https://raw.githubusercontent.com/snaptec/openWB/beta/web/version > "$OPENWBBASEDIR/ramdisk/vbeta"
-	curl --connect-timeout 10 -s https://raw.githubusercontent.com/snaptec/openWB/stable/web/version > "$OPENWBBASEDIR/ramdisk/vstable"
+	curl --connect-timeout 10 -s https://raw.githubusercontent.com/xerion3800/openWB/master/web/version > "$OPENWBBASEDIR/ramdisk/vnightly"
+	curl --connect-timeout 10 -s https://raw.githubusercontent.com/xerion3800/openWB/beta/web/version > "$OPENWBBASEDIR/ramdisk/vbeta"
+	curl --connect-timeout 10 -s https://raw.githubusercontent.com/xerion3800/openWB/stable/web/version > "$OPENWBBASEDIR/ramdisk/vstable"
 
 	# update our local version
 	sudo git -C "$OPENWBBASEDIR" show --pretty='format:%ci [%h]' | head -n1 > "$OPENWBBASEDIR/web/lastcommit"
