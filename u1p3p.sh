@@ -235,7 +235,7 @@ u1p3pswitch(){
 										openwbDebugLog "MAIN" 1 "auf 1 Phasen MinPV Automatik geaendert da geringerer Überschuss"
 									fi
 								fi
-								if (((( oldll == minimalampv )) && (( ladeleistung > 100 )))) || (( uberschuss < 3 * mindestuberschuss )); then
+								if  (((( oldll == minimalampv )) && (( ladeleistung > 100 )))) || (( uberschuss < 3 * mindestuberschuss )); then
 									urcounter=$(</var/www/html/openWB/ramdisk/urcounter)
 									if (( urcounter < urwaittime )); then
 										urcounter=$((urcounter + 10))
