@@ -67,8 +67,8 @@ cp modules/soc_eq/soc_eq_acc_lp2 /tmp/soc_eq_acc_lp2
 cp openwb.conf /tmp/openwb.conf
 
 # fetch new release from GitHub
-sudo git fetch matzempc
-sudo git reset --hard matzempc/$train
+sudo git fetch origin
+sudo git reset --hard origin/$train
 
 # set permissions
 cd /var/www/html/
