@@ -370,7 +370,7 @@ if [[ current -lt 6 ]]; then
 	if [[ $debug == "2" ]]; then
 		echo "Ladestrom < 6A, setze auf 0A"
 	fi
-	current=6
+	current=0
 	lstate=0
 else
 	lstate=1
@@ -456,7 +456,7 @@ if [[ $points == "all" ]] || [[ $points == "m" ]]; then
 
 	if (( lp1enabled == 0 )); then
 		oldcurrent=$current
-		current=6
+		current=0
 	fi
 		setChargingCurrent
 		echo $current > /var/www/html/openWB/ramdisk/llsoll
@@ -495,7 +495,7 @@ if [[ $lastmanagement == "1" ]]; then
 		# dirty call (no parameters, all is set above...)
 		if (( lp2enabled == 0 )); then
 			oldcurrent=$current
-			current=6
+			current=0
 		fi
 
 		setChargingCurrent
@@ -526,7 +526,7 @@ if [[ $lastmanagements2 == "1" ]]; then
 		owbpro1ip=$owbpro3ip
 		if (( lp3enabled == 0 )); then
 			oldcurrent=$current
-			current=6
+			current=0
 		fi
 		# dirty call (no parameters, all is set above...)
 		setChargingCurrent
@@ -549,7 +549,7 @@ if [[ $lastmanagementlp4 == "1" ]]; then
 
 		if (( lp4enabled == 0 )); then
 			oldcurrent=$current
-			current=6
+			current=0
 		fi
 		# dirty call (no parameters, all is set above...)
 		setChargingCurrent
@@ -572,7 +572,7 @@ if [[ $lastmanagementlp5 == "1" ]]; then
 
 		if (( lp5enabled == 0 )); then
 			oldcurrent=$current
-			current=6
+			current=0
 		fi
 		# dirty call (no parameters, all is set above...)
 		setChargingCurrent
@@ -594,7 +594,7 @@ if [[ $lastmanagementlp6 == "1" ]]; then
 		owbpro1ip=$owbpro6ip
 		if (( lp6enabled == 0 )); then
 			oldcurrent=$current
-			current=6
+			current=0
 		fi
 		# dirty call (no parameters, all is set above...)
 		setChargingCurrent
@@ -617,7 +617,7 @@ if [[ $lastmanagementlp7 == "1" ]]; then
 
 		if (( lp7enabled == 0 )); then
 			oldcurrent=$current
-			current=6
+			current=0
 		fi
 		# dirty call (no parameters, all is set above...)
 		setChargingCurrent
@@ -640,7 +640,7 @@ if [[ $lastmanagementlp8 == "1" ]]; then
 
 		if (( lp8enabled == 0 )); then
 			oldcurrent=$current
-			current=6
+			current=0
 		fi
 		# dirty call (no parameters, all is set above...)
 		setChargingCurrent
