@@ -2,9 +2,6 @@
 re='^-?[0-9]+$'
 rekwh='^[-+]?[0-9]+\.?[0-9]*$'
 
-
-python /var/www/html/openWB/modules/goelp1/restzeit.py
-
 output=$(curl --connect-timeout $goetimeoutlp1 -s http://$goeiplp1/status)
 if [[ $? == "0" ]] ; then
 	goecorrectionfactor=$(echo "scale=0;$goecorrectionfactorlp1 * 100000 /1" |bc)
@@ -111,6 +108,7 @@ if [[ $? == "0" ]] ; then
 	fi
 	if [[ $car == "2" ]] ; then
 		echo 1 > /var/www/html/openWB/ramdisk/chargestat
+		python /var/www/html/openWB/modules/goelp1/restzeit.py
 	else
 		echo 0 > /var/www/html/openWB/ramdisk/chargestat
 	fi
