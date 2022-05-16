@@ -103,6 +103,7 @@ if [[ $? == "0" ]] ; then
 		echo 0 > /var/www/html/openWB/ramdisk/plugstats1
 	else
 		echo 1 > /var/www/html/openWB/ramdisk/plugstats1
+		echo --:-- > /var/www/html/openWB/ramdisk/goelp2estimatetime
 	fi
 	if [[ $car == "2" ]] ; then
 		echo 1 > /var/www/html/openWB/ramdisk/chargestats1
