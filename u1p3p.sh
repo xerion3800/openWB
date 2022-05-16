@@ -36,7 +36,7 @@ u1p3pswitch(){
 						openwbDebugLog "MAIN" 1 "auf $u1p3psofort Phasen geaendert"
 					fi
 				fi
-				if (( lademodus == 1 )); then
+				if (( lademodus == 1 )) && (( ladeleistung > 100 )); then
 					if (( u1p3pstat != u1p3pminundpv )); then
 						if (( u1p3pminundpv == 4 )); then
 							if (( u1p3pstat == 0 )); then
@@ -67,7 +67,7 @@ u1p3pswitch(){
 						fi
 					fi
 				fi
-				if (( lademodus == 2 )); then
+				if (( lademodus == 2 )) && (( ladeleistung > 100 )); then
 					if (( u1p3pstat != u1p3pnurpv )); then
 						if (( u1p3pnurpv == 4 )); then
 							if (( u1p3pstat == 0 )); then
