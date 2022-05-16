@@ -6,14 +6,6 @@ u1p3pswitch(){
 		u1p3pstat=$(<ramdisk/u1p3pstat)
 		nachtladenstate=$(<ramdisk/nachtladenstate)
 		nachtladen2state=$(<ramdisk/nachtladen2state)
-		ladungaktivlp1=$(<ramdisk/ladungaktivlp1)
-		ladungaktivlp2=$(<ramdisk/ladungaktivlp2)
-		# Abfrage ob Ladung an LP1 oder LP2 aktiv ist
-		if (( ladungaktivlp1 == 1 || ladungaktivlp2 == 1));then
-			ladungaktiv=1
-			else
-			ladungaktiv=0
-		fi
 		if [ -z "$u1p3schaltparam" ]; then
 			u1p3schaltparam=8
 		fi
@@ -21,8 +13,6 @@ u1p3pswitch(){
 		urwaittime=$(( (16 - u1p3schaltparam) * 60 ))
 		openwbDebugLog "MAIN" 1 "automatische Umschaltung aktiv"
 		openwbDebugLog "MAIN" 1 "Timing Umschaltung: $uhwaittime / $urwaittime"
-		openwbDebugLog "MAIN" 1 "Ladung aktiv: LP1: $ladungaktivlp1 LP2: $ladungaktivlp2"
-		openwbDebugLog "MAIN" 1 "Ladung aktiv: $ladungaktiv"
 		if (( ladestatus == 0)); then
 			if (( nachtladenstate == 1 )) || (( nachtladen2state == 1 )); then
 				if (( u1p3pstat != u1p3pnl )); then
@@ -46,8 +36,7 @@ u1p3pswitch(){
 						openwbDebugLog "MAIN" 1 "auf $u1p3psofort Phasen geaendert"
 					fi
 				fi
-				# Umschaltung nur wenn Ladung aktiv ist
-				if (( lademodus == 1 && ladungaktiv == 1 )); then
+				if (( lademodus == 1 )); then
 					if (( u1p3pstat != u1p3pminundpv )); then
 						if (( u1p3pminundpv == 4 )); then
 							if (( u1p3pstat == 0 )); then
@@ -78,8 +67,7 @@ u1p3pswitch(){
 						fi
 					fi
 				fi
-				# Umschaltung nur wenn Ladung aktiv ist
-				if (( lademodus == 2 && ladungaktiv == 1 )); then
+				if (( lademodus == 2 )); then
 					if (( u1p3pstat != u1p3pnurpv )); then
 						if (( u1p3pnurpv == 4 )); then
 							if (( u1p3pstat == 0 )); then
@@ -168,8 +156,7 @@ u1p3pswitch(){
 						openwbDebugLog "MAIN" 1 "auf $u1p3psofort Phasen geaendert"
 					fi
 				fi
-				# Umschaltung nur wenn Ladung aktiv ist
-				if (( lademodus == 1 && ladungaktiv == 1 )); then
+				if (( lademodus == 1 )); then
 					if (( u1p3pstat != u1p3pminundpv )); then
 						if (( u1p3pminundpv == 4 )); then
 							oldll=$(<ramdisk/llsoll)
@@ -235,7 +222,7 @@ u1p3pswitch(){
 										openwbDebugLog "MAIN" 1 "auf 1 Phasen MinPV Automatik geaendert da geringerer Überschuss"
 									fi
 								fi
-								if (( oldll == minimalampv )); then
+								if (( oldll == minimalampv )) && (( ladeleistung > 100 )); then
 									urcounter=$(</var/www/html/openWB/ramdisk/urcounter)
 									if (( urcounter < urwaittime )); then
 										urcounter=$((urcounter + 10))
@@ -273,8 +260,7 @@ u1p3pswitch(){
 						fi
 					fi
 				fi
-				# Umschaltung nur wenn Ladung aktiv ist
-				if (( lademodus == 2 && ladungaktiv == 1 )); then
+				if (( lademodus == 2 )); then
 					if (( u1p3pstat != u1p3pnurpv )); then
 						if (( u1p3pnurpv == 4 )); then
 							oldll=$(<ramdisk/llsoll)
@@ -330,7 +316,7 @@ u1p3pswitch(){
 										openwbDebugLog "MAIN" 1 "auf 1 Phasen NurPV Automatik geaendert da geringerer Überschuss"
 									fi
 								fi
-								if (( oldll == minimalapv )); then
+								if (( oldll == minimalapv )) && (( ladeleistung > 100 )); then
 									urcounter=$(</var/www/html/openWB/ramdisk/urcounter)
 									if (( urcounter  < urwaittime )); then
 										urcounter=$((urcounter + 10))
