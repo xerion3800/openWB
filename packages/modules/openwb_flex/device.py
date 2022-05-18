@@ -89,10 +89,10 @@ def read_legacy(component_type: str, version: int, ip_address: str, port: int, i
     component_config["configuration"]["id"] = id
     dev.add_component(component_config)
 
-    log.MainLogger().debug('openWB Version: ' + str(version))
-    log.MainLogger().debug('openWB-Kit IP-Adresse: ' + str(ip_address))
-    log.MainLogger().debug('openWB-Kit Port: ' + str(port))
-    log.MainLogger().debug('openWB-Kit ID: ' + str(id))
+    log.MainLogger().debug('openWB flex Version: ' + str(version))
+    log.MainLogger().debug('openWB flex-Kit IP-Adresse: ' + ip_address)
+    log.MainLogger().debug('openWB flex-Kit Port: ' + str(port))
+    log.MainLogger().debug('openWB flex-Kit ID: ' + str(id))
 
     dev.update()
 
