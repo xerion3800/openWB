@@ -127,15 +127,11 @@ loadvars(){
 		if [ "$evseplugstate" -ge "0" ] && [ "$evseplugstate" -le "10" ] ; then
 			if [[ $evseplugstate > "1" ]]; then
 				plugstat=$(</var/www/html/openWB/ramdisk/plugstat)
-				msg_text="Fahrzeug eingesteckt. Ladung startet bei erfüllter Ladebedingung automatisch."
 				if [[ $plugstat == "0" ]] ; then
 					if [[ $pushbplug == "1" ]] && [[ $ladestatuslp1 == "0" ]] && [[ $pushbenachrichtigung == "1" ]] ; then
-						
-						/var/www/html/openWB/runs/pushover.sh "$msg_text"
+						message="Fahrzeug eingesteckt. Ladung startet bei erfüllter Ladebedingung automatisch."
+						/var/www/html/openWB/runs/pushover.sh "$message"
 					fi
-					if [[ $telebplug == "1" ]] && [[ $ladestatuslp1 == "0" ]] && [[ $telebenachrichtigung == "1" ]] ; then
-						/var/www/html/openWB/runs/telegram.sh "$msg_text"
-					fi					
 					if [[ $displayconfigured == "1" ]] && [[ $displayEinBeimAnstecken == "1" ]] ; then
 						export DISPLAY=:0 && xset dpms force on && xset dpms $displaysleep $displaysleep $displaysleep
 					fi
@@ -157,13 +153,10 @@ loadvars(){
 		fi
 	else
 		pluggedin=$(</var/www/html/openWB/ramdisk/pluggedin)
-		msg_text="Fahrzeug eingesteckt. Ladung startet bei erfüllter Ladebedingung automatisch."
 		if [ "$pluggedin" -gt "0" ]; then
 			if [[ $pushbplug == "1" ]] && [[ $ladestatuslp1 == "0" ]] && [[ $pushbenachrichtigung == "1" ]] ; then
-				/var/www/html/openWB/runs/pushover.sh "$msg_text"
-			fi
-			if [[ $telebplug == "1" ]] && [[ $ladestatuslp1 == "0" ]] && [[ $telebenachrichtigung == "1" ]] ; then
-				/var/www/html/openWB/runs/telegram.sh "$msg_text"
+				message="Fahrzeug eingesteckt. Ladung startet bei erfüllter Ladebedingung automatisch."
+				/var/www/html/openWB/runs/pushover.sh "$message"
 			fi
 			if [[ $displayconfigured == "1" ]] && [[ $displayEinBeimAnstecken == "1" ]] ; then
 				export DISPLAY=:0 && xset dpms force on && xset dpms $displaysleep $displaysleep $displaysleep
@@ -1462,17 +1455,17 @@ loadvars(){
 	ohook1_aktiv=$(<ramdisk/mqtthook1_aktiv)
 	if [[ "$ohook1_aktiv" != "$hook1_aktiv" ]]; then
 		tempPubList="${tempPubList}\nopenWB/hook/1/boolHookConfigured=${hook1_aktiv}"
-		echo $ > ramdisk/mqtthook1_aktiv
+		echo $hook1_aktiv > ramdisk/mqtthook1_aktiv
 	fi
 	ohook2_aktiv=$(<ramdisk/mqtthook2_aktiv)
 	if [[ "$ohook2_aktiv" != "$hook2_aktiv" ]]; then
 		tempPubList="${tempPubList}\nopenWB/hook/2/boolHookConfigured=${hook2_aktiv}"
-		echo $ > ramdisk/mqtthook2_aktiv
+		echo $hook2_aktiv > ramdisk/mqtthook2_aktiv
 	fi
 	ohook3_aktiv=$(<ramdisk/mqtthook3_aktiv)
 	if [[ "$ohook3_aktiv" != "$hook3_aktiv" ]]; then
 		tempPubList="${tempPubList}\nopenWB/hook/3/boolHookConfigured=${hook3_aktiv}"
-		echo $ > ramdisk/mqtthook3_aktiv
+		echo $hook3_aktiv > ramdisk/mqtthook3_aktiv
 	fi
 
 	if (( ohook1aktiv != hook1aktiv )); then

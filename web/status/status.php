@@ -195,14 +195,6 @@
 											<th scope="row">SoC [%]</th>
 											<td class="soc">--</td>
 										</tr>
-										<tr class="lpLastSeenRow hide">
-											<th scope="row">Letzte Verbindung</th>
-											<td class="lpLastSeen"></td>
-										</tr>
-										<tr class="lpgoeestimatetimeRow">
-											<th scope="row">Voll geladen um</th>
-											<td class="lpgoeestimatetime"></td>
-										</tr>
 										<tr class="faultStrSocLpRow hide">
 											<th scope="row">Störungsbeschreibung</th>
 											<td class="faultStrSocLp"></td>

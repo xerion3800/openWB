@@ -176,16 +176,10 @@ initRamdisk(){
 	echo 0 > $RamdiskPath/progevsedinlp22000
 	echo 0 > $RamdiskPath/progevsedinlp22007
 	echo 0 > $RamdiskPath/cpulp1counter
-	temp_soc=$(<$RamdiskPath/soc)
-	echo $temp_soc >$RamdiskPath/temp_soc
-	soc=$(<$RamdiskPath/temp_soc)
-	echo $soc > $RamdiskPath/soc
+	echo 0 > $RamdiskPath/soc
 	echo 0 > $RamdiskPath/soc-live.graph
 	echo 0 > $RamdiskPath/soc.graph
-	temp_soc1=$(<$RamdiskPath/soc1)
-	echo $temp_soc1 >$RamdiskPath/temp_soc1
-	soc1=$(<$RamdiskPath/temp_soc1)
-	echo $soc1 > $RamdiskPath/soc1
+	echo 0 > $RamdiskPath/soc1
 	echo 0 > $RamdiskPath/soc1vorhanden
 	echo 0 > $RamdiskPath/tmpsoc
 	echo 0 > $RamdiskPath/tmpsoc1
@@ -452,7 +446,6 @@ initRamdisk(){
 		for f in \
 			"pluggedladunglp${i}startkwh:openWB/lp/${i}/plugStartkWh:0" \
 			"pluggedladungaktlp${i}:openWB/lp/${i}/pluggedladungakt:0" \
-			"temp_kWhCounter_lp${i}:openWB/lp/${i}/kWhCounter:0" \
 			"lp${i}phasen::0" \
 			"lp${i}enabled::1" \
 			"restzeitlp${i}::0" \

@@ -42,9 +42,6 @@ Number = Union[int, float]
 
 class ModbusClient:
     def __init__(self, address: str, port: int = 502):
-<<<<<<< HEAD
-        self.delegate = ModbusTcpClient(address, port)
-=======
         parsed_url = parse_url(address)
         host = parsed_url.host
         if parsed_url.port is not None:
@@ -52,7 +49,6 @@ class ModbusClient:
         self.delegate = ModbusTcpClient(host, port)
         self.address = host
         self.port = port
->>>>>>> master
 
     def __enter__(self):
         self.delegate.__enter__()

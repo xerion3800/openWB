@@ -12,7 +12,7 @@ from modules.openwb_flex import inverter
 
 def get_default_config() -> dict:
     return {
-        "name": "OpenWB-Kit",
+        "name": "OpenWB-Kit flex",
         "type": "openwb_flex",
         "id": 0,
         "configuration": {
