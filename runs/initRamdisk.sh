@@ -100,8 +100,8 @@ initRamdisk(){
 	echo 0 > $RamdiskPath/llkwhlp6
 	echo 0 > $RamdiskPath/llkwhlp7
 	echo 0 > $RamdiskPath/llkwhlp8
-	echo 6 > $RamdiskPath/llsoll
-	echo 6 > $RamdiskPath/llsolls1
+	echo 0 > $RamdiskPath/llsoll
+	echo 0 > $RamdiskPath/llsolls1
 	echo 0 > $RamdiskPath/llsolls2
 	echo 0 > $RamdiskPath/llsolllp4
 	echo 0 > $RamdiskPath/llsolllp5
