@@ -383,7 +383,7 @@ at_reboot() {
 	echo "load versions..."
 	curl --connect-timeout 10 -s https://raw.githubusercontent.com/xerion3800/openWB/master/web/version > "$OPENWBBASEDIR/ramdisk/vnightly"
 	curl --connect-timeout 10 -s https://raw.githubusercontent.com/xerion3800/openWB/beta/web/version > "$OPENWBBASEDIR/ramdisk/vbeta"
-	curl --connect-timeout 10 -s https://raw.githubusercontent.com/xerion3800/openWB/stable/web/version > "$OPENWBBASEDIR/ramdisk/vstable"
+	curl --connect-timeout 10 -s https://raw.githubusercontent.com/xerion3800/openWB/stable17/web/version > "$OPENWBBASEDIR/ramdisk/vstable"
 
 	# update our local version
 	sudo git -C "$OPENWBBASEDIR" show --pretty='format:%ci [%h]' | head -n1 > "$OPENWBBASEDIR/web/lastcommit"

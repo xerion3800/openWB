@@ -632,35 +632,17 @@ updateConfig(){
 	if ! grep -Fq "goetimeoutlp1=" $ConfigFile; then
 		echo "goetimeoutlp1=5" >> $ConfigFile
 	fi
-	if ! grep -Fq "goesimulationlp1=" $ConfigFile; then
-		echo "goesimulationlp1=0" >> $ConfigFile
-	fi
-	if ! grep -Fq "goecorrectionfactorlp1=" $ConfigFile; then
-		echo "goecorrectionfactorlp1=1" >> $ConfigFile
-	fi
 	if ! grep -Fq "goeiplp2=" $ConfigFile; then
 		echo "goeiplp2=192.168.0.15" >> $ConfigFile
 	fi
 	if ! grep -Fq "goetimeoutlp2=" $ConfigFile; then
 		echo "goetimeoutlp2=5" >> $ConfigFile
 	fi
-	if ! grep -Fq "goesimulationlp2=" $ConfigFile; then
-		echo "goesimulationlp2=0" >> $ConfigFile
-	fi
-	if ! grep -Fq "goecorrectionfactorlp2=" $ConfigFile; then
-		echo "goecorrectionfactorlp2=1" >> $ConfigFile
-	fi
 	if ! grep -Fq "goeiplp3=" $ConfigFile; then
 		echo "goeiplp3=192.168.0.15" >> $ConfigFile
 	fi
 	if ! grep -Fq "goetimeoutlp3=" $ConfigFile; then
 		echo "goetimeoutlp3=5" >> $ConfigFile
-	fi
-	if ! grep -Fq "goesimulationlp3=" $ConfigFile; then
-		echo "goesimulationlp3=0" >> $ConfigFile
-	fi
-	if ! grep -Fq "goecorrectionfactorlp3=" $ConfigFile; then
-		echo "goecorrectionfactorlp3=1" >> $ConfigFile
 	fi
 	if ! grep -Fq "pushbenachrichtigung=" $ConfigFile; then
 		echo "pushbenachrichtigung=0" >> $ConfigFile
@@ -676,21 +658,6 @@ updateConfig(){
 	fi
 	if ! grep -Fq "pushbstopl=" $ConfigFile; then
 		echo "pushbstopl=1" >> $ConfigFile
-	fi
-	if ! grep -Fq "telebenachrichtigung=" $ConfigFile; then
-		echo "telebenachrichtigung=0" >> $ConfigFile
-	fi
-	if ! grep -Fq "telegramtoken=" $ConfigFile; then
-		echo "telegramtoken='demotoken'" >> $ConfigFile
-	fi
-	if ! grep -Fq "telegramuser=" $ConfigFile; then
-		echo "telegramuser='demouser'" >> $ConfigFile
-	fi
-	if ! grep -Fq "telebstartl=" $ConfigFile; then
-		echo "telebstartl=1" >> $ConfigFile
-	fi
-	if ! grep -Fq "telebstopl=" $ConfigFile; then
-		echo "telebstopl=1" >> $ConfigFile
 	fi
 	if ! grep -Fq "smashmbezugid=" $ConfigFile; then
 		echo "smashmbezugid=1234567789" >> $ConfigFile
@@ -903,6 +870,9 @@ updateConfig(){
 	fi
 	if ! grep -Fq "name_wechselrichter2=" $ConfigFile; then
 		echo "name_wechselrichter2=WR2" >> $ConfigFile
+	fi
+	if ! grep -Fq "name_wechselrichter3=" $ConfigFile; then
+		echo "name_wechselrichter3=WR3" >> $ConfigFile
 	fi
 	if ! grep -Fq "hook1ein_url=" $ConfigFile; then
 		echo "hook1ein_url='https://webhook.com/ein.php'" >> $ConfigFile
@@ -1149,6 +1119,9 @@ updateConfig(){
 	if ! grep -Fq "vartaspeicherip=" $ConfigFile; then
 		echo "vartaspeicherip=192.168.0.10" >> $ConfigFile
 	fi
+	if ! grep -Fq "vartaspeicher2ip=" $ConfigFile; then
+		echo "vartaspeicher2ip=none" >> $ConfigFile
+	fi
 	if ! grep -Fq "usevartamodbus=" $ConfigFile; then
 		echo "usevartamodbus=0" >> $ConfigFile
 	fi
@@ -1244,6 +1217,10 @@ updateConfig(){
 			echo "speicher1_ip=192.168.0.17"
 		} >> $ConfigFile
 	fi
+	if ! grep -Fq "pv1_ida=" $ConfigFile; then
+		echo "pv1_ida=1" >> $ConfigFile
+	fi
+
 	if ! grep -Fq "speicher1_ip2=" $ConfigFile; then
 		echo "speicher1_ip2=192.168.0.17" >> $ConfigFile
 	fi
@@ -1276,7 +1253,9 @@ updateConfig(){
 		else
 			echo "etprovideraktiv=0" >> $ConfigFile
 		fi
-		# tibber demo settings
+	fi
+	# tibber demo settings
+	if ! grep -Fq "tibbertoken=" $ConfigFile; then
 		echo "tibbertoken=d1007ead2dc84a2b82f0de19451c5fb22112f7ae11d19bf2bedb224a003ff74a" >> $ConfigFile
 		echo "tibberhomeid=c70dcbe5-4485-4821-933d-a8a86452737b" >> $ConfigFile
 	fi
@@ -1292,9 +1271,6 @@ updateConfig(){
 	fi
 	if ! grep -Fq "pushbplug=" $ConfigFile; then
 		echo "pushbplug=0" >> $ConfigFile
-	fi
-	if ! grep -Fq "telebplug=" $ConfigFile; then
-		echo "telebplug=1" >> $ConfigFile
 	fi
 	if ! grep -Fq "wrsmawebbox=" $ConfigFile; then
 		echo "wrsmawebbox=0" >> $ConfigFile
@@ -1425,12 +1401,6 @@ updateConfig(){
 	if ! grep -Fq "pushbsmarthome=" $ConfigFile; then
 		echo "pushbsmarthome=1" >> $ConfigFile
 	fi
-	if ! grep -Fq "telebsmarthome=" $ConfigFile; then
-		echo "telebsmarthome=1" >> $ConfigFile
-	fi
-	if ! grep -Fq "telebsmarthome=" $ConfigFile; then
-		echo "telebsmarthome=1" >> $ConfigFile
-	fi
 	if ! grep -Fq "graphsocdyn=" $ConfigFile; then
 		echo "graphsocdyn=1" >> $ConfigFile
 	fi
@@ -1552,9 +1522,6 @@ updateConfig(){
 	if ! grep -Fq "soc_zeronglp2_intervall=" $ConfigFile; then
 		echo "soc_zeronglp2_intervall=20" >> $ConfigFile
 	fi
-	if ! grep -Fq "alphaessip=" $ConfigFile; then
-		echo "alphaessip=192.168.193.31" >> $ConfigFile
-	fi
 	if ! grep -Fq "solarview_hostname=" $ConfigFile; then
 		echo "solarview_hostname=192.168.0.31" >> $ConfigFile
 	fi
@@ -1591,6 +1558,9 @@ updateConfig(){
 	fi
 	if ! grep -Fq "powerfoxid=" $ConfigFile; then
 		echo "powerfoxid=idesmeters" >> $ConfigFile
+	fi
+	if ! grep -Fq "powerfoxpvid=" $ConfigFile; then
+		echo "powerfoxpvid=idesmeters" >> $ConfigFile
 	fi
 	if ! grep -Fq "ksemip=" $ConfigFile; then
 		echo "ksemip=ipdesmeters" >> $ConfigFile
