@@ -230,9 +230,9 @@
 				}
 
 				$(function getAllVersions() {
-					displayVersion("Stable", 'https://raw.githubusercontent.com/snaptec/openWB/stable17/web/version');
-					displayVersion("Beta", 'https://raw.githubusercontent.com/snaptec/openWB/beta/web/version');
-					displayVersion("Nightly", 'https://raw.githubusercontent.com/snaptec/openWB/master/web/version');
+					displayVersion("Stable", 'https://raw.githubusercontent.com/xerion3800/openWB/stable17/web/version');
+					displayVersion("Beta", 'https://raw.githubusercontent.com/xerion3800/openWB/beta/web/version');
+					displayVersion("Nightly", 'https://raw.githubusercontent.com/xerion3800/openWB/master/web/version');
 				});
 
 				$.get({
