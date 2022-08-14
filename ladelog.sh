@@ -185,10 +185,16 @@ processChargepoint(){
 				# send push message if configured
 				if (( pushbenachrichtigung == 1 )) ; then
 					if (( pushbstartl == 1 )) ; then
-						openwbDebugLog "CHARGESTAT" 2 "sending push notification for charge point \"${!chargePointNameVariableName}\""
+						openwbDebugLog "CHARGESTAT" 2 "sending Pushover notification for charge point \"${!chargePointNameVariableName}\""
 						"${OPENWBBASEDIR}/runs/pushover.sh" "${!chargePointNameVariableName} Ladung gestartet$soctext"
 					fi
 				fi
+				if (( telebenachrichtigung == 1 )) ; then
+					if (( telebstartl == 1 )) ; then
+						openwbDebugLog "CHARGESTAT" 2 "sending Telegram notification for charge point \"${!chargePointNameVariableName}\""
+						"${OPENWBBASEDIR}/runs/telegram.sh" "${!chargePointNameVariableName} Ladung gestartet$soctext"
+					fi
+				fi				
 				openwbDebugLog "CHARGESTAT" 0 "LP${chargePointNumber}, Ladung gestartet"
 			fi
 			# reset our charge stop timer
@@ -241,10 +247,16 @@ processChargepoint(){
 					# send push message if configured
 					if (( pushbenachrichtigung == 1 )) ; then
 						if (( pushbstopl == 1 )) ; then
-							openwbDebugLog "CHARGESTAT" 2 "sending push notification for charge point \"${!chargePointNameVariableName}\""
+							openwbDebugLog "CHARGESTAT" 2 "sending Pushover notification for charge point \"${!chargePointNameVariableName}\""
 							"${OPENWBBASEDIR}/runs/pushover.sh" "${!chargePointNameVariableName} Ladung gestoppt. $bishergeladen kWh in $ladedauertext mit durchschnittlich $ladegeschw kW geladen$soctext"
 						fi
 					fi
+					if (( telebenachrichtigung == 1 )) ; then
+						if (( telebstopl == 1 )) ; then
+							openwbDebugLog "CHARGESTAT" 2 "sending Telegramm notification for charge point \"${!chargePointNameVariableName}\""
+							"${OPENWBBASEDIR}/runs/telegram.sh" "${!chargePointNameVariableName} Ladung gestoppt. $bishergeladen kWh in $ladedauertext mit durchschnittlich $ladegeschw kW geladen$soctext"
+						fi
+					fi					
 					# clear detected charge start
 					rm "${RAMDISKDIR}/ladeustart${chargePointKey2}"
 					openwbDebugLog "CHARGESTAT" 0 "LP$chargePointNumber, Ladung gestoppt"
