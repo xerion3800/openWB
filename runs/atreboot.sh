@@ -29,6 +29,7 @@ at_reboot() {
 	. "$OPENWBBASEDIR/runs/updateConfig.sh"
 	. "$OPENWBBASEDIR/runs/rfid/rfidHelper.sh"
 	. "$OPENWBBASEDIR/runs/pushButtons/pushButtonsHelper.sh"
+	. "$OPENWBBASEDIR/runs/rse/rseHelper.sh"
 
 	sleep 5
 	mkdir -p "$OPENWBBASEDIR/web/backup"
@@ -82,14 +83,8 @@ at_reboot() {
 	# setup push buttons handler if needed
 	pushButtonsSetup "$ladetaster" 1
 
-	# check for rse and restart daemon
-	sudo pkill -f '^python.*/rse.py'
-	if (( rseenabled == 1 )); then
-		echo "rse..."
-		if ! [ -x "$(command -v nmcli)" ]; then  # hack to prevent running the daemon on openwb standalone
-			sudo python "$OPENWBBASEDIR/runs/rse.py" &
-		fi
-	fi
+	# setup rse handler if needed
+	rseSetup "$rseenabled" 1
 
 	# setup rfid handler if needed
 	rfidSetup "$rfidakt" 1 "$rfidlist"
