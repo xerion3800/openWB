@@ -665,6 +665,21 @@ updateConfig(){
 	if ! grep -Fq "pushbstopl=" $ConfigFile; then
 		echo "pushbstopl=1" >> $ConfigFile
 	fi
+		if ! grep -Fq "telebenachrichtigung=" $ConfigFile; then
+		echo "telebenachrichtigung=0" >> $ConfigFile
+	fi
+	if ! grep -Fq "telegramtoken=" $ConfigFile; then
+		echo "telegramtoken='demotoken'" >> $ConfigFile
+	fi
+	if ! grep -Fq "telegramuser=" $ConfigFile; then
+		echo "telegramuser='demouser'" >> $ConfigFile
+	fi
+	if ! grep -Fq "telebstartl=" $ConfigFile; then
+		echo "telebstartl=1" >> $ConfigFile
+	fi
+	if ! grep -Fq "telebstopl=" $ConfigFile; then
+		echo "telebstopl=1" >> $ConfigFile
+	fi
 	if ! grep -Fq "smashmbezugid=" $ConfigFile; then
 		echo "smashmbezugid=1234567789" >> $ConfigFile
 	fi
@@ -1284,6 +1299,9 @@ updateConfig(){
 	if ! grep -Fq "pushbplug=" $ConfigFile; then
 		echo "pushbplug=0" >> $ConfigFile
 	fi
+	if ! grep -Fq "telebplug=" $ConfigFile; then
+		echo "telebplug=1" >> $ConfigFile
+	fi
 	if ! grep -Fq "wrsmawebbox=" $ConfigFile; then
 		echo "wrsmawebbox=0" >> $ConfigFile
 	fi
@@ -1415,6 +1433,12 @@ updateConfig(){
 	fi
 	if ! grep -Fq "pushbsmarthome=" $ConfigFile; then
 		echo "pushbsmarthome=1" >> $ConfigFile
+	fi
+	if ! grep -Fq "telebsmarthome=" $ConfigFile; then
+		echo "telebsmarthome=1" >> $ConfigFile
+	fi
+	if ! grep -Fq "telebsmarthome=" $ConfigFile; then
+		echo "telebsmarthome=1" >> $ConfigFile
 	fi
 	if ! grep -Fq "graphsocdyn=" $ConfigFile; then
 		echo "graphsocdyn=1" >> $ConfigFile

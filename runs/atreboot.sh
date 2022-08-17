@@ -1,6 +1,5 @@
 #!/bin/bash
 OPENWBBASEDIR=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
-LOGFILE="/var/log/openWB.log"
 . "$OPENWBBASEDIR/helperFunctions.sh"
 
 at_reboot() {
@@ -101,7 +100,7 @@ at_reboot() {
 	# restart our modbus server
 	echo "modbus server..."
 	sudo pkill -f '^python.*/modbusserver.py' > /dev/null
-	sudo nohup python3 "$OPENWBBASEDIR/runs/modbusserver/modbusserver.py" >>"$LOGFILE" 2>&1 &
+	sudo python3 "$OPENWBBASEDIR/runs/modbusserver/modbusserver.py" &
 
 	# display setup
 	echo "display..."
@@ -131,17 +130,17 @@ at_reboot() {
 	smartmq=$(<"$OPENWBBASEDIR/ramdisk/smartmq")
 	if (( smartmq == 0 )); then
 		echo "starting legacy smarthome handler"
-		nohup python3 "$OPENWBBASEDIR/runs/smarthomehandler.py" >> "$OPENWBBASEDIR/ramdisk/smarthome.log" 2>&1 &
+		python3 "$OPENWBBASEDIR/runs/smarthomehandler.py" >> "$OPENWBBASEDIR/ramdisk/smarthome.log" 2>&1 &
 	else
 		echo "starting smarthomemq handler"
-		nohup python3 "$OPENWBBASEDIR/runs/smarthomemq.py" >> "$OPENWBBASEDIR/ramdisk/smarthome.log" 2>&1 &
+		python3 "$OPENWBBASEDIR/runs/smarthomemq.py" >> "$RAMDISKDIR/smarthome.log" 2>&1 &
 	fi
 
 	# restart mqttsub handler
 	echo "mqtt handler..."
 	# we need sudo to kill in case of an update from an older version where this script was not run as user `pi`:
 	sudo pkill -f '^python.*/mqttsub.py'
-	nohup python3 "$OPENWBBASEDIR/runs/mqttsub.py" >>"$LOGFILE" 2>&1 &
+	python3 "$OPENWBBASEDIR/runs/mqttsub.py" &
 
 	# restart legacy run server
 	echo "legacy run server..."
@@ -358,7 +357,7 @@ at_reboot() {
 	if (( isss == 1 )); then
 		echo "isss..."
 		echo "$lastmanagement" > "$OPENWBBASEDIR/ramdisk/issslp2act"
-		nohup python3 "$OPENWBBASEDIR/runs/isss.py" >>"$OPENWBBASEDIR/ramdisk/isss.log" 2>&1 &
+		python3 "$OPENWBBASEDIR/runs/isss.py" &
 		# second IP already set up !
 		ethstate=$(</sys/class/net/eth0/carrier)
 		if (( ethstate == 1 )); then
@@ -377,7 +376,7 @@ at_reboot() {
 		if [ ! -f /home/pi/ppbuchse ]; then
 			echo "32" > /home/pi/ppbuchse
 		fi
-		nohup python3 "$OPENWBBASEDIR/runs/buchse.py" >>"$LOGFILE" 2>&1 &
+		python3 "$OPENWBBASEDIR/runs/buchse.py" &
 	fi
 
 	# get local ip
@@ -427,7 +426,7 @@ at_reboot() {
 		echo "update electricity pricelist..."
 		echo "" > "$OPENWBBASEDIR/ramdisk/etprovidergraphlist"
 		mosquitto_pub -r -t openWB/global/ETProvider/modulePath -m "$etprovider"
-		nohup "$OPENWBBASEDIR/modules/$etprovider/main.sh" >>"$LOGFILE" 2>&1 &
+		"$OPENWBBASEDIR/modules/$etprovider/main.sh" > /var/log/openWB.log 2>&1 &
 	else
 		echo "not activated, skipping"
 		mosquitto_pub -r -t openWB/global/awattar/pricelist -m ""
