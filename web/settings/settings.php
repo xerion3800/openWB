@@ -405,132 +405,6 @@
 								</div>  <!-- end modal Tibber-verify-data-window -->
 
 							</div>
-							<div class="card-text alert alert-info">
-								Hier kann ausgewählt werden für welche Ladepunkte Preisbasiertes laden gelten soll.
-							</div>						
-							<div class="form-group">
-								<div class="form-row vaRow mb-1">
-									<div class="col-md-4">
-										Ladepunkt 1
-									</div>
-									<div class="btn-group btn-group-toggle col" data-toggle="buttons">
-										<label class="btn btn-outline-info<?php if ($enablepricebasedchargelp1old == 0) echo " active" ?>">
-											<input type="radio" name="enablepricebasedchargelp1" id="enablepricebasedchargelp1Off" value="0" <?php if ($enablepricebasedchargelp1old == 0) echo " checked=\"checked\"" ?>>Nein
-										</label>
-										<label class="btn btn-outline-info<?php if ($enablepricebasedchargelp1old == 1) echo " active" ?>">
-											<input type="radio" name="enablepricebasedchargelp1" id="enablepricebasedchargelp1On" value="1" <?php if ($enablepricebasedchargelp1old == 1) echo " checked=\"checked\"" ?>>Ja
-										</label>
-									</div>
-								</div>
-								<div id="lp2pbcdiv" class="hide">
-									<div class="form-row vaRow mb-1">
-										<div class="col-md-4">
-											Ladepunkt 2
-										</div>
-										<div class="btn-group btn-group-toggle col" data-toggle="buttons">
-											<label class="btn btn-outline-info<?php if ($enablepricebasedchargelp2old == 0) echo " active" ?>">
-												<input type="radio" name="enablepricebasedchargelp2" id="enablepricebasedchargelp2Off" value="0" <?php if ($enablepricebasedchargelp2old == 0) echo " checked=\"checked\"" ?>>Nein
-											</label>
-											<label class="btn btn-outline-info<?php if ($enablepricebasedchargelp2old == 1) echo " active" ?>">
-												<input type="radio" name="enablepricebasedchargelp2" id="enablepricebasedchargelp2On" value="1" <?php if ($enablepricebasedchargelp2old == 1) echo " checked=\"checked\"" ?>>Ja
-											</label>
-										</div>
-									</div>
-								</div>
-								<div id="lp3pbcdiv" class="hide">
-									<div class="form-row vaRow mb-1">
-										<div class="col-md-4">
-											Ladepunkt 3
-										</div>
-										<div class="btn-group btn-group-toggle col" data-toggle="buttons">
-											<label class="btn btn-outline-info<?php if ($enablepricebasedchargelp3old == 0) echo " active" ?>">
-												<input type="radio" name="enablepricebasedchargelp3" id="enablepricebasedchargelp3Off" value="0" <?php if ($enablepricebasedchargelp3old == 0) echo " checked=\"checked\"" ?>>Nein
-											</label>
-											<label class="btn btn-outline-info<?php if ($enablepricebasedchargelp3old == 1) echo " active" ?>">
-												<input type="radio" name="enablepricebasedchargelp3" id="enablepricebasedchargelp3On" value="1" <?php if ($enablepricebasedchargelp3old == 1) echo " checked=\"checked\"" ?>>Ja
-											</label>
-										</div>
-									</div>
-								</div>
-								<div id="lp4pbcdiv" class="hide">
-									<div class="form-row vaRow mb-1">
-										<div class="col-md-4">
-											Ladepunkt 4
-										</div>
-										<div class="btn-group btn-group-toggle col" data-toggle="buttons">
-											<label class="btn btn-outline-info<?php if ($enablepricebasedchargelp4old == 0) echo " active" ?>">
-												<input type="radio" name="enablepricebasedchargelp4" id="enablepricebasedchargelp4Off" value="0" <?php if ($enablepricebasedchargelp4old == 0) echo " checked=\"checked\"" ?>>Nein
-											</label>
-											<label class="btn btn-outline-info<?php if ($enablepricebasedchargelp4old == 1) echo " active" ?>">
-												<input type="radio" name="enablepricebasedchargelp4" id="enablepricebasedchargelp4On" value="1" <?php if ($enablepricebasedchargelp4old == 1) echo " checked=\"checked\"" ?>>Ja
-											</label>
-										</div>
-									</div>
-								</div>
-								<div id="lp5pbcdiv" class="hide">
-									<div class="form-row vaRow mb-1">
-										<div class="col-md-4">
-											Ladepunkt 5
-										</div>
-										<div class="btn-group btn-group-toggle col" data-toggle="buttons">
-											<label class="btn btn-outline-info<?php if ($enablepricebasedchargelp5old == 0) echo " active" ?>">
-												<input type="radio" name="enablepricebasedchargelp5" id="enablepricebasedchargelp5Off" value="0" <?php if ($enablepricebasedchargelp5old == 0) echo " checked=\"checked\"" ?>>Nein
-											</label>
-											<label class="btn btn-outline-info<?php if ($enablepricebasedchargelp5old == 1) echo " active" ?>">
-												<input type="radio" name="enablepricebasedchargelp5" id="enablepricebasedchargelp5On" value="1" <?php if ($enablepricebasedchargelp5old == 1) echo " checked=\"checked\"" ?>>Ja
-											</label>
-										</div>
-									</div>
-								</div>
-								<div id="lp6pbcdiv" class="hide">
-									<div class="form-row vaRow mb-1">
-										<div class="col-md-4">
-											Ladepunkt 6
-										</div>
-										<div class="btn-group btn-group-toggle col" data-toggle="buttons">
-											<label class="btn btn-outline-info<?php if ($enablepricebasedchargelp6old == 0) echo " active" ?>">
-												<input type="radio" name="enablepricebasedchargelp6" id="enablepricebasedchargelp6Off" value="0" <?php if ($enablepricebasedchargelp6old == 0) echo " checked=\"checked\"" ?>>Nein
-											</label>
-											<label class="btn btn-outline-info<?php if ($enablepricebasedchargelp6old == 1) echo " active" ?>">
-												<input type="radio" name="enablepricebasedchargelp6" id="enablepricebasedchargelp6On" value="1" <?php if ($enablepricebasedchargelp6old == 1) echo " checked=\"checked\"" ?>>Ja
-											</label>
-										</div>
-									</div>
-								</div>
-								<div id="lp7pbcdiv" class="hide">
-									<div class="form-row vaRow mb-1">
-										<div class="col-md-4">
-											Ladepunkt 7
-										</div>
-										<div class="btn-group btn-group-toggle col" data-toggle="buttons">
-											<label class="btn btn-outline-info<?php if ($enablepricebasedchargelp7old == 0) echo " active" ?>">
-												<input type="radio" name="enablepricebasedchargelp7" id="enablepricebasedchargelp7Off" value="0" <?php if ($enablepricebasedchargelp7old == 0) echo " checked=\"checked\"" ?>>Nein
-											</label>
-											<label class="btn btn-outline-info<?php if ($enablepricebasedchargelp7old == 1) echo " active" ?>">
-												<input type="radio" name="enablepricebasedchargelp7" id="enablepricebasedchargelp7On" value="1" <?php if ($enablepricebasedchargelp7old == 1) echo " checked=\"checked\"" ?>>Ja
-											</label>
-										</div>
-									</div>
-								</div>
-								<div id="lp8pbcdiv" class="hide">
-									<div class="form-row vaRow mb-1">
-										<div class="col-md-4">
-											Ladepunkt 8
-										</div>
-										<div class="btn-group btn-group-toggle col" data-toggle="buttons">
-											<label class="btn btn-outline-info<?php if ($enablepricebasedchargelp8old == 0) echo " active" ?>">
-												<input type="radio" name="enablepricebasedchargelp8" id="enablepricebasedchargelp8Off" value="0" <?php if ($enablepricebasedchargelp8old == 0) echo " checked=\"checked\"" ?>>Nein
-											</label>
-											<label class="btn btn-outline-info<?php if ($enablepricebasedchargelp8old == 1) echo " active" ?>">
-												<input type="radio" name="enablepricebasedchargelp8" id="enablepricebasedchargelp8On" value="1" <?php if ($enablepricebasedchargelp8old == 1) echo " checked=\"checked\"" ?>>Ja
-											</label>
-										</div>
-									</div>
-								</div>
-							</div>
-		
-
-
 						</div>
 					</div>
 
@@ -717,68 +591,54 @@
 								showSection('#loadsharingoffdiv');
 								hideSection('#nachtladenlp2div');
 								hideSection('#durchslp2div');
-								hideSection('#lp2pbcdiv');
 							} else {
 								showSection('#lp2aktdiv');
 								showSection('#loadsharingdiv');
 								hideSection('#loadsharingoffdiv');
 								showSection('#nachtladenlp2div');
 								showSection('#durchslp2div');
-								showSection('#lp2pbcdiv');
 							}
 							if(lp3akt == '0') {
 								hideSection('#lp3aktdiv');
 								hideSection('#durchslp3div');
-								hideSection('#lp3pbcdiv');
 							} else {
 								showSection('#lp3aktdiv');
 								showSection('#durchslp3div');
-								showSection('#lp3pbcdiv');
 							}
 							if(lp4akt == '0') {
 								hideSection('#lp4aktdiv');
 								hideSection('#durchslp4div');
-								hideSection('#lp4pbcdiv');
 							} else {
 								showSection('#lp4aktdiv');
 								showSection('#durchslp4div');
-								showSection('#lp4pbcdiv');
 							}
 							if(lp5akt == '0') {
 								hideSection('#lp5aktdiv');
 								hideSection('#durchslp5div');
-								hideSection('#lp5pbcdiv');
 							} else {
 								showSection('#lp5aktdiv');
 								showSection('#durchslp5div');
-								showSection('#lp5pbcdiv');
 							}
 							if(lp6akt == '0') {
 								hideSection('#lp6aktdiv');
 								hideSection('#durchslp6div');
-								hideSection('#lp6pbcdiv');
 							} else {
 								showSection('#lp6aktdiv');
 								showSection('#durchslp6div');
-								showSection('#lp6pbcdiv');
 							}
 							if(lp7akt == '0') {
 								hideSection('#lp7aktdiv');
 								hideSection('#durchslp7div');
-								hideSection('#lp7pbcdiv');
 							} else {
 								showSection('#lp7aktdiv');
 								showSection('#durchslp7div');
-								showSection('#lp7pbcdiv');
 							}
 							if(lp8akt == '0') {
 								hideSection('#lp8aktdiv');
 								hideSection('#durchslp8div');
-								hideSection('#lp8pbcdiv');
 							} else {
 								showSection('#lp8aktdiv');
 								showSection('#durchslp8div');
-								showSection('#lp8pbcdiv');
 							}
 						});
 					</script>
