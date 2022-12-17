@@ -1386,6 +1386,15 @@ def on_message(client, userdata, msg):
                     f = open('/var/www/html/openWB/ramdisk/mqttetprovideraktiv', 'w')
                     f.write(msg.payload.decode("utf-8"))
                     f.close()
+                    with open('/var/www/html/openWB/openwb.conf','r') as file:
+                        filedata = file.read()
+                        if (int(msg.payload) == 1):
+                            filedata = filedata.replace('etprovideraktiv=0','etprovideraktiv=1')
+                        else:
+                            filedata = filedata.replace('etprovideraktiv=1','etprovideraktiv=0')
+                    with open('/var/www/html/openWB/openwb.conf','w') as file:
+                        file.write(filedata) 
+                    client.publish("openWB/global/awattar/boolAwattarEnabled", msg.payload.decode("utf-8"), qos=0, retain=True)                   
             if (msg.topic == "openWB/set/houseBattery/W"):
                 if (float(msg.payload) >= -30000 and float(msg.payload) <= 30000):
                     f = open('/var/www/html/openWB/ramdisk/speicherleistung', 'w')
