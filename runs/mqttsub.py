@@ -1382,7 +1382,7 @@ def on_message(client, userdata, msg):
                     f.write(msg.payload.decode("utf-8"))
                     f.close()
             if (msg.topic == "openWB/set/awattar/boolAwattarEnabled"):
-                if (float(msg.payload) >= 0 and float(msg.payload) <=1):
+                if (int(msg.payload) >= 0 and int(msg.payload) <=1):
                     f = open('/var/www/html/openWB/ramdisk/mqttetprovideraktiv', 'w')
                     f.write(msg.payload.decode("utf-8"))
                     f.close()
