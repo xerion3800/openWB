@@ -1381,13 +1381,18 @@ def on_message(client, userdata, msg):
                     f = open('/var/www/html/openWB/ramdisk/etprovidermaxprice', 'w')
                     f.write(msg.payload.decode("utf-8"))
                     f.close()
+            if (msg.topic == "openWB/set/awattar/boolAwattarEnabled"):
+                if (float(msg.payload) >= 0 and float(msg.payload) <=1):
+                    f = open('/var/www/html/openWB/ramdisk/mqttetprovideraktiv', 'w')
+                    f.write(msg.payload.decode("utf-8"))
+                    f.close()
             if (msg.topic == "openWB/set/houseBattery/W"):
                 if (float(msg.payload) >= -30000 and float(msg.payload) <= 30000):
                     f = open('/var/www/html/openWB/ramdisk/speicherleistung', 'w')
                     f.write(msg.payload.decode("utf-8"))
                     f.close()
             if (msg.topic == "openWB/set/houseBattery/WhImported"):
-                if (float(msg.payload) >= 0 and float(msg.payload) <= 9000000):
+                if (int(msg.payload) >= 0 and int(msg.payload) <= 9000000):
                     f = open('/var/www/html/openWB/ramdisk/speicherikwh', 'w')
                     f.write(msg.payload.decode("utf-8"))
                     f.close()
