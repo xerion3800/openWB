@@ -14,21 +14,21 @@ sofortlademodus(){
 		if (( $(echo "$actualprice <= $etprovidermaxprice" |bc -l) )); then
 			#price lower than max price, enable charging
 			for i in $(seq 1 8); do
-			    myenabledvar="lp${i}enabled"
+				myenabledvar="lp${i}enabled"
 				myetbasedvar="lp${i}etbasedcharging"
 				if (( ${!myenabledvar} == 0 && ${!myetbasedvar} == 1 )); then
 					openwbDebugLog "MAIN" 1 "Aktiviere Ladung (preisbasiert) für Ladepunkt $i, Preis $actualprice, Max $etprovidermaxprice"
-				    mosquitto_pub -r -t openWB/set/lp/${i}/ChargePointEnabled -m "1"
+					mosquitto_pub -r -t openWB/set/lp/${i}/ChargePointEnabled -m "1"
 				fi
 			done
 		else
 			#price higher than max price, disable charging
 			for i in $(seq 1 8); do
-			    myenabledvar="lp${i}enabled"
+				myenabledvar="lp${i}enabled"
 				myetbasedvar="lp${i}etbasedcharging"
 				if (( ${!myenabledvar} == 1 && ${!myetbasedvar} == 1 )); then
 					openwbDebugLog "MAIN" 1 "Deaktiviere Ladung (preisbasiert) für Ladepunkt $i, Preis $actualprice, Max $etprovidermaxprice"
-				    mosquitto_pub -r -t openWB/set/lp/${i}/ChargePointEnabled -m "0"
+					mosquitto_pub -r -t openWB/set/lp/${i}/ChargePointEnabled -m "0"
 				fi
 			done
 		fi

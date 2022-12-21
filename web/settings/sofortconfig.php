@@ -46,7 +46,7 @@
 
 				<div class="card border-secondary">
 					<div class="card-header bg-secondary">
-						 Allgemeine Einstellungen
+						Allgemeine Einstellungen
 					</div>
 					<div class="card-body">
 						<div class="form-group mb-0">
