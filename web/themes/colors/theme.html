@@ -442,6 +442,20 @@
 								<input class="btn btn-sm btn-primary regularTextSize ml-2" type="button" id="lp/1/resetEnergyToCharge"
 									value="Reset" data-topicprefix="openWB/config/get/sofort/">
 							</div>
+							<div class="row justify-content-center">
+								<h4 class="text-center">Preisbasiertes Laden <span class="nameLp"></span></h4>
+							</div>
+							<div class="form-row vaRow form-group mt-1 justify-content-center" data-lp="1">
+								<div class="col btn-group btn-group-toggle" id="lp/1/etBasedCharging" data-toggle="buttons"
+									data-topicprefix="openWB/config/get/sofort/">
+									<label class="btn btn-sm btn-outline-info btn-toggle regularTextSize">
+										<input type="radio" name="lp/1/etBasedCharging" data-option="0"> Aus
+									</label>
+									<label class="btn btn-sm btn-outline-info btn-toggle regularTextSize">
+										<input type="radio" name="lp/1/etBasedCharging" data-option="1"> An
+									</label>
+								</div>
+							</div>
 						</div>
 
 						<div class="chargeLimitation" data-lp="2">
