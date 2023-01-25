@@ -97,7 +97,7 @@ class WbData {
 		this.consumer[0].color = 'var(--color-co1)';
 		this.consumer[1].color = 'var(--color-co2)';
 		for (i = 0; i < 9; i++) {
-			this.historicSummary['sh' + i] = Object.assign(this.shDevice[i])
+			this.historicSummary['sh' + i] = Object.assign({},this.shDevice[i])
 		}
 		this.historicSummary.pv.color = 'var(--color-pv)';
 		this.historicSummary.evuIn.color = 'var(--color-evu)';
@@ -478,6 +478,9 @@ function formatWatt(watt) {
 	if (watt > 1000000) {
 		wattResult = (Math.round(watt / 10000) / 100)
 		return (wattResult.toLocaleString(undefined, { minimumFractionDigits: 2 }) + " MW");
+	} else if (watt > 100000) {
+		wattResult = Math.round(watt / 1000)
+		return (wattResult.toLocaleString(undefined) + " kW");
 	} else if (watt >= 1000 && wbdata.decimalPlaces < 4) {
 		switch (wbdata.decimalPlaces) {
 			case 0:
@@ -507,6 +510,9 @@ function formatWattH(watt) {
 	if (watt > 1000000) {
 		wattResult = (Math.round(watt / 10000) / 100)
 		return (wattResult.toLocaleString(undefined, { minimumFractionDigits: 2 }) + " MWh");
+	} else if (watt > 100000) {
+		wattResult = Math.round(watt / 1000)
+		return (wattResult.toLocaleString(undefined) + " kWh");
 	} else if (watt >= 1000 && wbdata.decimalPlaces < 4) {
 		switch (wbdata.decimalPlaces) {
 			case 0:
