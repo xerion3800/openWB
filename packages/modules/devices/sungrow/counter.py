@@ -57,9 +57,12 @@ class SungrowCounter:
         counter_state = CounterState(
             imported=imported,
             exported=exported,
-            power=power,
-            voltages=voltages,
-            frequency=frequency
+            # powers=powers,
+            voltages=[1,2,3],
+            # voltages=voltages,
+            frequency=23,
+            currents=[1,2,3],
+            # currents=currents
         )
         self.store.set(counter_state)
 
