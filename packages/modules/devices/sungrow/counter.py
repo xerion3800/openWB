@@ -40,7 +40,7 @@ class SungrowCounter:
             powers = [power / 10 for power in powers]
             log.info("power: " + str(power) + " powers?: " + str(powers))
             
-            current = self.__tcp_client.read_input_registers(13031, [ModbusDataType.INT_16] * 3,
+            currents = self.__tcp_client.read_input_registers(13031, [ModbusDataType.INT_16] * 3,
                                                             wordorder=Endian.Little, unit=unit)
             currents = [current / 10 for current in currents]
             log.info("current: " + str(current) + " currents?: " + str(currents))
