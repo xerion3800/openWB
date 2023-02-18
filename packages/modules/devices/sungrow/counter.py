@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from typing import Dict, Union
+import logging
 
 from dataclass_utils import dataclass_from_dict
 from modules.common import modbus
@@ -12,6 +13,7 @@ from modules.common.store import get_counter_value_store
 from modules.devices.sungrow.config import SungrowCounterSetup
 from modules.devices.sungrow.version import Version
 
+log = logging.getLogger(__name__)
 
 class SungrowCounter:
     def __init__(self,
@@ -32,11 +34,13 @@ class SungrowCounter:
         if self.component_config.configuration.version == Version.SH:
             power = self.__tcp_client.read_input_registers(13009, ModbusDataType.INT_32,
                                                            wordorder=Endian.Little, unit=unit) * -1
-            # no valid data for powers per phase
-            # powers = self.__tcp_client.read_input_registers(5084, [ModbusDataType.INT_16] * 3,
-            #                                                 wordorder=Endian.Little, unit=unit)
-            # powers = [power / 10 for power in powers]
-            # log.info("power: " + str(power) + " powers?: " + str(powers))
+            power_l1 = self.__tcp_client.read_input_registers(5602, ModbusDataType.INT_16,
+                                                            wordorder=Endian.Little, unit=unit)
+            power_l2 = self.__tcp_client.read_input_registers(5604, ModbusDataType.INT_16,
+                                                            wordorder=Endian.Little, unit=unit)
+            power_l3 = self.__tcp_client.read_input_registers(5606, ModbusDataType.INT_16,
+                                                            wordorder=Endian.Little, unit=unit)
+            log.warning("power_l1-l3: " + str(power_l1,power_l2,power_l3))
         else:
             power = self.__tcp_client.read_input_registers(5082, ModbusDataType.INT_32,
                                                            wordorder=Endian.Little, unit=unit)
@@ -57,12 +61,10 @@ class SungrowCounter:
         counter_state = CounterState(
             imported=imported,
             exported=exported,
-            # powers=powers,
-            voltages=[1,2,3],
-            # voltages=voltages,
-            frequency=23,
-            currents=[1,2,3],
-            # currents=currents
+            powers=[power_l1,power_l2,power_l3],
+            power=power,
+            voltages=voltages,
+            frequency=frequency
         )
         self.store.set(counter_state)
 
