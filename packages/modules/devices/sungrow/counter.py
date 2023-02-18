@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from typing import Dict, Union
+import logging
 
 from dataclass_utils import dataclass_from_dict
 from modules.common import modbus
@@ -12,6 +13,7 @@ from modules.common.store import get_counter_value_store
 from modules.devices.sungrow.config import SungrowCounterSetup
 from modules.devices.sungrow.version import Version
 
+log = logging.getLogger(__name__)
 
 class SungrowCounter:
     def __init__(self,
