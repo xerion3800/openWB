@@ -37,13 +37,13 @@ class SungrowCounter:
             # no valid data for powers per phase
             powers = self.__tcp_client.read_input_registers(5084, [ModbusDataType.INT_16] * 3,
                                                             wordorder=Endian.Little, unit=unit)
-            powers = [power / 10 for power in powers]
+            powers = [powers / 10 for powers in powers]
             log.info("power: " + str(power) + " powers?: " + str(powers))
             
             currents = self.__tcp_client.read_input_registers(13030, [ModbusDataType.INT_16] * 3,
                                                             wordorder=Endian.Little, unit=unit)
             currents = [currents / 10 for currents in currents]
-            log.info("current: " + str(currents) + " currents?: " + str(currents))
+            log.info("currents?: " + str(currents))
         else:
             power = self.__tcp_client.read_input_registers(5082, ModbusDataType.INT_32,
                                                            wordorder=Endian.Little, unit=unit)
