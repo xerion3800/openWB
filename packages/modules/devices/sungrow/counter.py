@@ -73,7 +73,7 @@ class SungrowCounter:
             power=power,
             voltages=voltages,
             frequency=frequency,
-            currents=currents
+            # currents=currents
         )
         self.store.set(counter_state)
 
