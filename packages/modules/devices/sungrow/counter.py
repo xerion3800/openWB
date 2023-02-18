@@ -33,10 +33,15 @@ class SungrowCounter:
             power = self.__tcp_client.read_input_registers(13009, ModbusDataType.INT_32,
                                                            wordorder=Endian.Little, unit=unit) * -1
             # no valid data for powers per phase
-            # powers = self.__tcp_client.read_input_registers(5084, [ModbusDataType.INT_16] * 3,
-            #                                                 wordorder=Endian.Little, unit=unit)
-            # powers = [power / 10 for power in powers]
-            # log.info("power: " + str(power) + " powers?: " + str(powers))
+            powers = self.__tcp_client.read_input_registers(5084, [ModbusDataType.INT_16] * 3,
+                                                            wordorder=Endian.Little, unit=unit)
+            powers = [power / 10 for power in powers]
+            log.info("power: " + str(power) + " powers?: " + str(powers))
+            
+            current = self.__tcp_client.read_input_registers(13031, [ModbusDataType.INT_16] * 3,
+                                                            wordorder=Endian.Little, unit=unit)
+            currents = [current / 10 for power in powers]
+            log.info("current: " + str(current) + " currents?: " + str(currents))
         else:
             power = self.__tcp_client.read_input_registers(5082, ModbusDataType.INT_32,
                                                            wordorder=Endian.Little, unit=unit)
@@ -57,12 +62,10 @@ class SungrowCounter:
         counter_state = CounterState(
             imported=imported,
             exported=exported,
-            # powers=powers,
-            voltages=[1,2,3],
-            # voltages=voltages,
-            frequency=23,
-            currents=[1,2,3],
-            # currents=currents
+            powers=powers,
+            voltages=voltages,
+            frequency=frequency,
+            currents=currents
         )
         self.store.set(counter_state)
 
