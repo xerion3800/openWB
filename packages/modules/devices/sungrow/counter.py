@@ -35,20 +35,20 @@ class SungrowCounter:
             power = self.__tcp_client.read_input_registers(13009, ModbusDataType.INT_32,
                                                            wordorder=Endian.Little, unit=unit) * -1
             # no valid data for powers per phase
-            power_l1 = self.__tcp_client.read_input_registers(5602, [ModbusDataType.INT_16],
+            power_l1 = self.__tcp_client.read_input_registers(5602, ModbusDataType.INT_16,
                                                             wordorder=Endian.Little, unit=unit)
-            power_l2 = self.__tcp_client.read_input_registers(5604, [ModbusDataType.INT_16],
+            power_l2 = self.__tcp_client.read_input_registers(5604, ModbusDataType.INT_16,
                                                             wordorder=Endian.Little, unit=unit)
-            power_l3 = self.__tcp_client.read_input_registers(5606, [ModbusDataType.INT_16],
+            power_l3 = self.__tcp_client.read_input_registers(5606, ModbusDataType.INT_16,
                                                             wordorder=Endian.Little, unit=unit)
             
             # powers = [powers / 10 for powers in powers]
             # log.warning("power: " + str(power) + " powers?: " + str(powers))
             
-            currents = self.__tcp_client.read_input_registers(13030, [ModbusDataType.INT_16] * 3,
-                                                            wordorder=Endian.Little, unit=unit)
-            currents = [currents / 10 for currents in currents]
-            log.warning("currents?: " + str(currents))
+            # currents = self.__tcp_client.read_input_registers(13030, [ModbusDataType.INT_16] * 3,
+            #                                                 wordorder=Endian.Little, unit=unit)
+            # currents = [currents / 10 for currents in currents]
+            # log.warning("currents?: " + str(currents))
         else:
             power = self.__tcp_client.read_input_registers(5082, ModbusDataType.INT_32,
                                                            wordorder=Endian.Little, unit=unit)
