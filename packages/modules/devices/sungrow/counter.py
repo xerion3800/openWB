@@ -42,8 +42,8 @@ class SungrowCounter:
             
             currents = self.__tcp_client.read_input_registers(13031, [ModbusDataType.INT_16] * 3,
                                                             wordorder=Endian.Little, unit=unit)
-            currents = [current / 10 for current in currents]
-            log.info("current: " + str(current) + " currents?: " + str(currents))
+            currents = [currents / 10 for currents in currents]
+            log.info("current: " + str(currents) + " currents?: " + str(currents))
         else:
             power = self.__tcp_client.read_input_registers(5082, ModbusDataType.INT_32,
                                                            wordorder=Endian.Little, unit=unit)
