@@ -97,7 +97,7 @@ class WbData {
 		this.consumer[0].color = 'var(--color-co1)';
 		this.consumer[1].color = 'var(--color-co2)';
 		for (i = 0; i < 9; i++) {
-			this.historicSummary['sh' + i] = Object.assign({},this.shDevice[i])
+			this.historicSummary['sh' + i] = Object.assign({}, this.shDevice[i])
 		}
 		this.historicSummary.pv.color = 'var(--color-pv)';
 		this.historicSummary.evuIn.color = 'var(--color-evu)';
@@ -256,7 +256,9 @@ class WbData {
 					this.updateUsageDetails();
 					yieldMeter.update();
 					break;
-				case 'countAsHouse':
+				case 'name':
+					this.historicSummary['sh' + (index - 1)].name = value;
+					yieldMeter.update();
 					break;
 				default:
 					break;
@@ -469,7 +471,7 @@ class SHDevice {
 		this.energyPv = 0;
 		this.energyBat = 0;
 		this.pvPercentage = 0;
-		this.temp = [0.0, 0.0, 0.0];
+		this.temp = [300.0, 300.0, 300.0];
 	}
 };
 
