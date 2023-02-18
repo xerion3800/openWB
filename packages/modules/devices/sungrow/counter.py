@@ -40,7 +40,7 @@ class SungrowCounter:
                                                             wordorder=Endian.Little, unit=unit)
             power_l3 = self.__tcp_client.read_input_registers(5606, ModbusDataType.INT_16,
                                                             wordorder=Endian.Little, unit=unit)
-            log.warning("power_l1-l3: " + str(power_l1,power_l2,power_l3))
+            log.warning("power_l1-l3: " + str(power_l1 + power_l2 +power_l3))
         else:
             power = self.__tcp_client.read_input_registers(5082, ModbusDataType.INT_32,
                                                            wordorder=Endian.Little, unit=unit)
