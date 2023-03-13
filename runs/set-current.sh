@@ -201,30 +201,11 @@ function setChargingCurrenthttp () {
 # 3: goeiplp1
 function setChargingCurrentgoe () {
 	if [[ $evsecon == "goe" ]]; then
-		output=$(curl --connect-timeout "$goetimeoutlp1" -s "http://$goeiplp1/status")
-		#check whether goe has 1to3phase switch capability => new HWV3 and new API V2
-		digit='^[0-9]$'
-		fsp=$(echo "$output" | jq -r '.fsp')
-		if [[ ! $fsp =~ $digit ]] ; then
-			if [[ $current -eq 0 ]]; then
-				state=$(echo "$output" | jq -r '.alw')
-				if ((state == "1")) ; then
-					curl --silent --connect-timeout "$goetimeoutlp1" -s "http://$goeiplp1/mqtt?payload=alw=0" > /dev/null
-				fi
-			else
-				fwv=$(echo "$output" | jq -r '.fwv' | grep -Po "[1-9]\d{1,2}")
-				state=$(echo "$output" | jq -r '.alw')
-				if ((state == "0")) ; then
-					 curl --silent --connect-timeout "$goetimeoutlp1" -s "http://$goeiplp1/mqtt?payload=alw=1" > /dev/null
-				fi
-				oldgoecurrent=$(echo "$output" | jq -r '.amp')
-				if (( oldgoecurrent != $current )) ; then
-					if ((fwv >= 40)) ; then
-						curl --silent --connect-timeout "$goetimeoutlp1" -s "http://$goeiplp1/mqtt?payload=amx=$current" > /dev/null
-					else
-						curl --silent --connect-timeout "$goetimeoutlp1" -s "http://$goeiplp1/mqtt?payload=amp=$current" > /dev/null
-					fi
-				fi
+		if [[ $current -eq 0 ]]; then
+			output=$(curl --connect-timeout "$goetimeoutlp1" -s "http://$goeiplp1/status")
+			state=$(echo "$output" | jq -r '.alw')
+			if ((state == "1")) ; then
+				curl --silent --connect-timeout "$goetimeoutlp1" -s "http://$goeiplp1/mqtt?payload=alw=0" > /dev/null
 			fi
 		else
 			output=$(curl --connect-timeout "$goetimeoutlp1" -s "http://$goeiplp1/status")
@@ -244,14 +225,6 @@ function setChargingCurrentgoe () {
 					curl --silent --connect-timeout "$goetimeoutlp1" -s "http://$goeiplp1/mqtt?payload=amx=$current" > /dev/null
 				else
 					curl --silent --connect-timeout "$goetimeoutlp1" -s "http://$goeiplp1/mqtt?payload=amp=$current" > /dev/null
-				fi
-			else
-				if ((state == "1")) ; then
-					curl --silent --connect-timeout "$goetimeoutlp1" -s "http://$goeiplp1/api/set?frc=0" > /dev/null
-				fi
-				oldgoecurrent=$(echo "$output" | jq -r '.amp')
-				if (( oldgoecurrent != current )) ; then
-					curl --silent --connect-timeout "$goetimeoutlp1" -s "http://$goeiplp1/api/set?amp=$current" > /dev/null
 				fi
 			fi
 		fi
@@ -295,7 +268,7 @@ function setChargingCurrentnrgkick () {
 			output=$(curl --connect-timeout 3 -s "http://$nrgkickiplp1/api/settings/$nrgkickmaclp1")
 			state=$(echo "$output" | jq -r '.Values.ChargingStatus.Charging')
 			if [[ $state == "false" ]] ; then
-				 curl --connect-timeout 2 -s -X PUT -H "Content-Type: application/json" --data "{ \"Values\": {\"ChargingStatus\": { \"Charging\": true }, \"ChargingCurrent\": { \"Value\": $current }, \"DeviceMetadata\":{\"Password\": \"$nrgkickpwlp1\"}}}" "$nrgkickiplp1/api/settings/$nrgkickmaclp1" > /dev/null
+				curl --connect-timeout 2 -s -X PUT -H "Content-Type: application/json" --data "{ \"Values\": {\"ChargingStatus\": { \"Charging\": true }, \"ChargingCurrent\": { \"Value\": $current }, \"DeviceMetadata\":{\"Password\": \"$nrgkickpwlp1\"}}}" "$nrgkickiplp1/api/settings/$nrgkickmaclp1" > /dev/null
 			fi
 			oldcurrent=$(echo "$output" | jq -r '.Values.ChargingCurrent.Value')
 			if (( oldcurrent != current )) ; then
