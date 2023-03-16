@@ -2,6 +2,7 @@
 
 echo "update system"
 apt-get update
+apt-get cron -y
 
 echo "check for vim"
 if ! [ -x "$(command -v vim)" ]; then
@@ -188,24 +189,24 @@ echo "installing pymodbus"
 sudo pip install  -U pymodbus
 
 # echo "check for paho-mqtt"
-# if python3 -c "import paho.mqtt.publish as publish" &> /dev/null; then
-# 	echo 'mqtt installed...'
-# else
-#     sudo pip3 install paho-mqtt
-# fi
+if python3 -c "import paho.mqtt.publish as publish" &> /dev/null; then
+	echo 'mqtt installed...'
+else
+    sudo pip3 install paho-mqtt
+fi
 
 #Adafruit install
-# echo "check for MCP4725"
-#if python3 -c "import Adafruit_MCP4725" &> /dev/null; then
-        #echo 'Adafruit_MCP4725 installed...'
-#else
-        #sudo pip3 install Adafruit_MCP4725
-#fi
-# if python -c "import Adafruit_MCP4725" &> /dev/null; then
-#         echo 'Adafruit_MCP4725 installed...'
-# else
-#         sudo pip install Adafruit_MCP4725
-# fi
+echo "check for MCP4725"
+if python3 -c "import Adafruit_MCP4725" &> /dev/null; then
+        echo 'Adafruit_MCP4725 installed...'
+else
+        sudo pip3 install Adafruit_MCP4725
+fi
+if python -c "import Adafruit_MCP4725" &> /dev/null; then
+        echo 'Adafruit_MCP4725 installed...'
+else
+        sudo pip install Adafruit_MCP4725
+fi
 
 echo "www-data ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/010_pi-nopasswd
 
