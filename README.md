@@ -56,11 +56,6 @@ In der Shell folgendes eingeben:
 
 	curl -s https://raw.githubusercontent.com/xerion3800/openWB/master/openwb-install.sh | sudo sh
 
-oder für Pimox mit Debian Buster LXC:
-
-	curl -s https://raw.githubusercontent.com/xerion3800/openWB/master/openwb-install_proxmox.sh | sudo sh
-
-
 
 Crontab anpassen:
 	crontab -e
