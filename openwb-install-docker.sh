@@ -189,9 +189,9 @@ sudo pip install  -U pymodbus
 
 echo "check for paho-mqtt"
 if python3 -c "import paho.mqtt.publish as publish" &> /dev/null; then
-        echo 'mqtt installed...'
+	echo 'mqtt installed...'
 else
-        sudo pip3 install paho-mqtt
+    sudo pip3 install paho-mqtt
 fi
 
 #Adafruit install
