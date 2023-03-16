@@ -369,7 +369,7 @@ at_reboot() {
 		echo "update electricity pricelist..."
 		echo "" > "$OPENWBBASEDIR/ramdisk/etprovidergraphlist"
 		mosquitto_pub -r -t openWB/global/ETProvider/modulePath -m "$etprovider"
-		"$OPENWBBASEDIR/modules/$etprovider/main.sh" > /var/log/openWB.log 2>&1 &
+		nohup "$OPENWBBASEDIR/modules/$etprovider/main.sh" >>"$LOGFILE" 2>&1 &
 	else
 		echo "not activated, skipping"
 		mosquitto_pub -r -t openWB/global/awattar/pricelist -m ""
