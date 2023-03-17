@@ -2,7 +2,7 @@
 
 echo "update system"
 apt-get update
-apt-get cron -y
+apt install cron -y
 
 echo "check for vim"
 if ! [ -x "$(command -v vim)" ]; then
