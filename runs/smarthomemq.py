@@ -46,35 +46,49 @@ def on_connect(client, userdata, flags, rc) -> None:
     client.subscribe("openWB/SmartHome/Devices/#", 2)
 
 
+def logmq(devicenumb: int, keyword: str, value: str) -> None:
+    global parammqtt
+    #  richtig  topic single
+    if (devicenumb < 1) or (devicenumb > numberOfSupportedDevices):
+        pass
+    else:
+        log.info("(" + str(devicenumb) + ") Key " + str(keyword) + " Value " + str(value))
+        parammqtt.append([devicenumb, keyword, value])
+
+
+def logmqgl(keyword: str, value: str) -> None:
+    #  richtig  topic global
+    log.info("( global ) Key " + str(keyword) + " Value " + str(value))
+
+
 def on_message(client, userdata, msg) -> None:
     # wenn exception hier wird mit nächster msg weitergemacht
     # macht paho unter phyton 3 immer so
-    global parammqtt
+    # für neuer python 3.7 version gibt es absturz
     global maxspeicher
-    devicenumb = re.sub(r'\D', '', msg.topic)
-    input = msg.payload.decode("utf-8")
-    value = str(input)
+    try:
+        devicenumb = int(re.sub(r'\D', '', msg.topic))
+    except Exception:
+        devicenumb = 0
+    value = msg.payload.decode("utf-8")
+    try:
+        valueint = int(value)
+    except Exception:
+        valueint = 0
     if ("openWB/config/get/SmartHome/Devices" in msg.topic):
         keyword = re.sub('openWB/config/get/SmartHome/Devices/'
                          + str(devicenumb) + '/', '', msg.topic)
-    if ("openWB/SmartHome/Devices" in msg.topic):
+        logmq(devicenumb, keyword, value)
+    elif ("openWB/SmartHome/Devices" in msg.topic):
         keyword = re.sub('openWB/SmartHome/Devices/'
                          + str(devicenumb) + '/', '', msg.topic)
-    if ("openWB/config/get/SmartHome/maxBatteryPower" in msg.topic):
+        logmq(devicenumb, keyword, value)
+    elif ("openWB/config/get/SmartHome/maxBatteryPower" in msg.topic):
         keyword = re.sub('openWB/config/get/SmartHome/', '', msg.topic)
-        log.info("(global) Key " + str(keyword) + " Value " + str(value))
-        maxspeicher = int(value)
-    elif (("/" in keyword) or (int(devicenumb) < 1) or
-          (int(devicenumb) > numberOfSupportedDevices)):
-        # falsches topic
-        log.warning("(" + str(devicenumb) + ") skipped Key " +
-                    str(keyword) + " Msg " + str(msg.topic) +
-                    " Value " + str(value))
+        logmqgl(keyword, value)
+        maxspeicher = valueint
     else:
-        # richtig  topic
-        log.info("(" + str(devicenumb) + ") Key " +
-                 str(keyword) + " Value " + str(value))
-        parammqtt.append([devicenumb, keyword, value])
+        log.warning(" Skipped msg " + msg.topic + " Value " + value)
 
 
 def checkbootdone() -> int:
